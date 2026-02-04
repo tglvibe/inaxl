@@ -69,12 +69,14 @@ const CaseStudies = () => {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-12"
         >
-          <h2 className="text-primary font-serif italic text-4xl md:text-5xl mb-6">
-            Case Studies
+          <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
+            Our Work
+          </span>
+          <h2 className="text-foreground mb-6">
+            Case <span className="text-primary">Studies</span>
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-lg text-muted-foreground">
             Discover how we've helped leading organizations transform their businesses
-            <br className="hidden md:block" />
             through innovative technology solutions
           </p>
         </motion.div>
