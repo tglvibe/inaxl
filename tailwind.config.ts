@@ -57,7 +57,7 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // INAXL Brand Colors
+        // INAXL Brand Colors - Deeper, sharper tones
         inaxl: {
           cyan: "hsl(var(--inaxl-cyan))",
           lime: "hsl(var(--inaxl-lime))",
