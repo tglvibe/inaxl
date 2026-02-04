@@ -105,46 +105,75 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Visual - Bold 3D Cube Effect */}
+          {/* Right Visual - Stacked Cards with Process Flow */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="relative hidden lg:block"
           >
-            <div className="relative w-full aspect-square max-w-lg mx-auto">
-              {/* Outer hexagon shape */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-80 h-80 relative">
-                  {/* Animated rings */}
-                  <div className="absolute inset-0 rounded-full border-4 border-primary animate-spin" style={{ animationDuration: "25s" }} />
-                  <div className="absolute inset-6 rounded-full border-2 border-accent animate-spin" style={{ animationDuration: "18s", animationDirection: "reverse" }} />
-                  <div className="absolute inset-12 rounded-full border-2 border-primary/60 animate-spin" style={{ animationDuration: "12s" }} />
-                  
-                  {/* Center hub */}
-                  <div className="absolute inset-20 rounded-full bg-primary flex items-center justify-center shadow-xl">
-                    <div className="text-center">
-                      <p className="text-xs font-bold text-white/80 uppercase tracking-widest">Conceptualize</p>
-                      <p className="text-3xl font-black text-white my-1">BUILD</p>
-                      <p className="text-xs font-bold text-accent uppercase tracking-widest">Scale</p>
+            <div className="relative w-full max-w-md mx-auto">
+              {/* Main stacked cards */}
+              <div className="space-y-4">
+                {/* Conceptualize Card */}
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  className="relative bg-primary p-6 rounded-2xl shadow-xl ml-0"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
+                      <span className="text-2xl font-black text-white">01</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-white">Conceptualize</h3>
+                      <p className="text-sm text-white/80">Strategy & Vision</p>
                     </div>
                   </div>
-                </div>
+                  <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-accent rounded-full" />
+                </motion.div>
+
+                {/* Build Card */}
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.6 }}
+                  className="relative bg-accent p-6 rounded-2xl shadow-xl ml-8"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
+                      <span className="text-2xl font-black text-white">02</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-white">Build</h3>
+                      <p className="text-sm text-white/80">Engineering Excellence</p>
+                    </div>
+                  </div>
+                  <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-primary rounded-full" />
+                </motion.div>
+
+                {/* Scale Card */}
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.8 }}
+                  className="relative bg-primary p-6 rounded-2xl shadow-xl ml-16"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
+                      <span className="text-2xl font-black text-white">03</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-white">Scale</h3>
+                      <p className="text-sm text-white/80">Growth & Performance</p>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
 
-              {/* Floating service cards - Bold styling */}
-              <div className="absolute top-4 left-1/2 -translate-x-1/2 px-5 py-3 rounded-xl bg-primary text-white shadow-lg animate-float">
-                <p className="text-sm font-bold">AI Systems</p>
-              </div>
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-5 py-3 rounded-xl bg-primary text-white shadow-lg animate-float delay-200">
-                <p className="text-sm font-bold">Cloud Native</p>
-              </div>
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 px-5 py-3 rounded-xl bg-accent text-foreground shadow-lg animate-float delay-400">
-                <p className="text-sm font-bold">Data Intelligence</p>
-              </div>
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 px-5 py-3 rounded-xl bg-accent text-foreground shadow-lg animate-float delay-600">
-                <p className="text-sm font-bold">Product Engineering</p>
-              </div>
+              {/* Connecting line */}
+              <div className="absolute left-6 top-16 bottom-16 w-0.5 bg-gradient-to-b from-primary via-accent to-primary opacity-30" />
             </div>
           </motion.div>
         </div>
