@@ -105,7 +105,7 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Visual */}
+          {/* Right Visual - Bold 3D Cube Effect */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -113,33 +113,37 @@ const Hero = () => {
             className="relative hidden lg:block"
           >
             <div className="relative w-full aspect-square max-w-lg mx-auto">
-              {/* Outer ring */}
-              <div className="absolute inset-0 rounded-full border-2 border-dashed border-primary/20 animate-spin" style={{ animationDuration: "30s" }} />
-              
-              {/* Inner ring */}
-              <div className="absolute inset-8 rounded-full border-2 border-dashed border-accent/20 animate-spin" style={{ animationDuration: "20s", animationDirection: "reverse" }} />
-              
-              {/* Center circle */}
-              <div className="absolute inset-16 rounded-full bg-primary/10 backdrop-blur-sm flex items-center justify-center animate-pulse-glow">
-                <div className="text-center">
-                  <p className="text-sm font-medium text-muted-foreground">Conceptualize</p>
-                  <p className="text-2xl font-bold text-primary">Build</p>
-                  <p className="text-sm font-medium text-muted-foreground">Scale</p>
+              {/* Outer hexagon shape */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-80 h-80 relative">
+                  {/* Animated rings */}
+                  <div className="absolute inset-0 rounded-full border-4 border-primary animate-spin" style={{ animationDuration: "25s" }} />
+                  <div className="absolute inset-6 rounded-full border-2 border-accent animate-spin" style={{ animationDuration: "18s", animationDirection: "reverse" }} />
+                  <div className="absolute inset-12 rounded-full border-2 border-primary/60 animate-spin" style={{ animationDuration: "12s" }} />
+                  
+                  {/* Center hub */}
+                  <div className="absolute inset-20 rounded-full bg-primary flex items-center justify-center shadow-xl">
+                    <div className="text-center">
+                      <p className="text-xs font-bold text-white/80 uppercase tracking-widest">Conceptualize</p>
+                      <p className="text-3xl font-black text-white my-1">BUILD</p>
+                      <p className="text-xs font-bold text-accent uppercase tracking-widest">Scale</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Floating elements */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4 px-4 py-2 rounded-lg bg-card shadow-card border border-border animate-float">
-                <p className="text-xs font-medium text-foreground">AI Systems</p>
+              {/* Floating service cards - Bold styling */}
+              <div className="absolute top-4 left-1/2 -translate-x-1/2 px-5 py-3 rounded-xl bg-primary text-white shadow-lg animate-float">
+                <p className="text-sm font-bold">AI Systems</p>
               </div>
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-4 px-4 py-2 rounded-lg bg-card shadow-card border border-border animate-float delay-200">
-                <p className="text-xs font-medium text-foreground">Cloud Native</p>
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-5 py-3 rounded-xl bg-primary text-white shadow-lg animate-float delay-200">
+                <p className="text-sm font-bold">Cloud Native</p>
               </div>
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 px-4 py-2 rounded-lg bg-card shadow-card border border-border animate-float delay-400">
-                <p className="text-xs font-medium text-foreground">Data Intelligence</p>
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 px-5 py-3 rounded-xl bg-accent text-foreground shadow-lg animate-float delay-400">
+                <p className="text-sm font-bold">Data Intelligence</p>
               </div>
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 px-4 py-2 rounded-lg bg-card shadow-card border border-border animate-float delay-600">
-                <p className="text-xs font-medium text-foreground">Product Engineering</p>
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 px-5 py-3 rounded-xl bg-accent text-foreground shadow-lg animate-float delay-600">
+                <p className="text-sm font-bold">Product Engineering</p>
               </div>
             </div>
           </motion.div>
