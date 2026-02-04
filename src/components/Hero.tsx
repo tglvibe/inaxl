@@ -4,23 +4,6 @@ import { ArrowRight, Zap, TrendingUp, Shield } from "lucide-react";
 const Hero = () => {
   return (
     <section id="hero" className="relative min-h-screen flex items-center bg-background overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full opacity-5">
-          <svg viewBox="0 0 400 400" className="w-full h-full">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
-        {/* Floating orbs */}
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-primary/5 blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 rounded-full bg-accent/5 blur-3xl animate-float delay-300" />
-      </div>
-
       <div className="section-container relative z-10 pt-24">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Content */}
