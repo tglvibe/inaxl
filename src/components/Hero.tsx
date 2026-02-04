@@ -115,12 +115,13 @@ const Hero = () => {
             <div className="relative w-full max-w-md mx-auto">
               {/* Main stacked cards */}
               <div className="space-y-4">
-                {/* Conceptualize Card - Black */}
+                {/* Conceptualize Card - Deep Slate */}
                 <motion.div
                   initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
-                  className="relative bg-foreground p-6 rounded-2xl shadow-xl ml-0"
+                  className="relative p-6 rounded-2xl shadow-xl ml-0"
+                  style={{ backgroundColor: 'hsl(220, 40%, 20%)' }}
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
