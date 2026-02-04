@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
 
 const testimonials = [
@@ -36,18 +36,44 @@ const testimonials = [
 
 const Testimonials = () => {
   const ref = useRef(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
 
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 400;
-      scrollContainerRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
-    }
+  const navigate = (newDirection: number) => {
+    setDirection(newDirection);
+    setActiveIndex((prev) => {
+      if (newDirection === 1) {
+        return prev === testimonials.length - 1 ? 0 : prev + 1;
+      }
+      return prev === 0 ? testimonials.length - 1 : prev - 1;
+    });
   };
+
+  // Auto-advance every 6 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      navigate(1);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 100 : -100,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? 100 : -100,
+      opacity: 0,
+    }),
+  };
+
+  const currentTestimonial = testimonials[activeIndex];
 
   return (
     <section className="section-padding bg-background" ref={ref}>
@@ -71,81 +97,96 @@ const Testimonials = () => {
           </p>
         </motion.div>
 
-        {/* Scroll Navigation */}
-        <div className="relative">
-          {/* Navigation Buttons */}
-          <button 
-            onClick={() => scroll('left')}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-10 h-10 rounded-full bg-background border border-border shadow-md flex items-center justify-center hover:bg-secondary transition-colors hidden md:flex"
-            aria-label="Scroll left"
-          >
-            <ChevronLeft className="w-5 h-5 text-foreground" />
-          </button>
-          
-          <button 
-            onClick={() => scroll('right')}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-10 h-10 rounded-full bg-background border border-border shadow-md flex items-center justify-center hover:bg-secondary transition-colors hidden md:flex"
-            aria-label="Scroll right"
-          >
-            <ChevronRight className="w-5 h-5 text-foreground" />
-          </button>
+        {/* Single Testimonial Display */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="max-w-4xl mx-auto"
+        >
+          <div className="relative">
+            {/* Navigation Buttons */}
+            <button
+              onClick={() => navigate(-1)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-14 z-10 w-12 h-12 rounded-full bg-background border border-border shadow-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
 
-          {/* Horizontal Scroll Container */}
-          <div 
-            ref={scrollContainerRef}
-            className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent"
-            style={{ scrollbarWidth: 'thin' }}
-          >
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.author}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex-shrink-0 w-[320px] md:w-[400px] snap-start"
-              >
-                <div className="card-premium p-6 h-full relative">
-                  {/* Quote Icon */}
-                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Quote className="w-4 h-4 text-primary" />
+            <button
+              onClick={() => navigate(1)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-14 z-10 w-12 h-12 rounded-full bg-background border border-border shadow-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+
+            {/* Testimonial Card */}
+            <div className="overflow-hidden px-8 md:px-0">
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={activeIndex}
+                  custom={direction}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  className="bg-card border border-border rounded-2xl p-8 md:p-12 text-center relative"
+                >
+                  {/* Large Quote Icon */}
+                  <div className="absolute top-6 left-6 w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Quote className="w-7 h-7 text-primary" />
                   </div>
 
                   {/* Badge */}
-                  <span className="inline-block text-xs font-medium text-accent bg-accent/10 px-3 py-1 rounded-full mb-4">
-                    {testimonial.badge}
+                  <span className="inline-block text-sm font-medium text-primary bg-primary/10 px-4 py-1.5 rounded-full mb-8">
+                    {currentTestimonial.badge}
                   </span>
 
                   {/* Quote */}
-                  <blockquote className="text-foreground text-sm mb-6 leading-relaxed line-clamp-4">
-                    "{testimonial.quote}"
+                  <blockquote className="text-xl md:text-2xl text-foreground font-medium leading-relaxed mb-8 max-w-3xl mx-auto">
+                    "{currentTestimonial.quote}"
                   </blockquote>
 
                   {/* Author */}
-                  <div className="flex items-center gap-3 mt-auto">
-                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold">
-                      {testimonial.author.charAt(0)}
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-2xl">
+                      {currentTestimonial.author.charAt(0)}
                     </div>
                     <div>
-                      <p className="font-semibold text-foreground text-sm">{testimonial.author}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {testimonial.role}, {testimonial.company}
+                      <p className="font-bold text-lg text-foreground">
+                        {currentTestimonial.author}
+                      </p>
+                      <p className="text-muted-foreground">
+                        {currentTestimonial.role}, {currentTestimonial.company}
                       </p>
                     </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Dot Indicators */}
+          <div className="flex justify-center gap-2 mt-8">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  setDirection(index > activeIndex ? 1 : -1);
+                  setActiveIndex(index);
+                }}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === activeIndex
+                    ? "bg-primary w-8"
+                    : "bg-border hover:bg-primary/50"
+                }`}
+                aria-label={`Go to testimonial ${index + 1}`}
+              />
             ))}
           </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="flex justify-center gap-2 mt-6 md:hidden"
-        >
-          <span className="text-xs text-muted-foreground">Swipe to see more →</span>
         </motion.div>
       </div>
     </section>
