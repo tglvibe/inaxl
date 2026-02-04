@@ -115,12 +115,12 @@ const Hero = () => {
             <div className="relative w-full max-w-md mx-auto">
               {/* Main stacked cards */}
               <div className="space-y-4">
-                {/* Conceptualize Card */}
+                {/* Conceptualize Card - Black */}
                 <motion.div
                   initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
-                  className="relative bg-primary p-6 rounded-2xl shadow-xl ml-0"
+                  className="relative bg-foreground p-6 rounded-2xl shadow-xl ml-0"
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
@@ -131,15 +131,15 @@ const Hero = () => {
                       <p className="text-sm text-white/80">Strategy & Vision</p>
                     </div>
                   </div>
-                  <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-accent rounded-full" />
+                  <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-primary rounded-full" />
                 </motion.div>
 
-                {/* Build Card */}
+                {/* Build Card - Blue */}
                 <motion.div
                   initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.6 }}
-                  className="relative bg-accent p-6 rounded-2xl shadow-xl ml-8"
+                  className="relative bg-primary p-6 rounded-2xl shadow-xl ml-8"
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
@@ -150,15 +150,15 @@ const Hero = () => {
                       <p className="text-sm text-white/80">Engineering Excellence</p>
                     </div>
                   </div>
-                  <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-primary rounded-full" />
+                  <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-accent rounded-full" />
                 </motion.div>
 
-                {/* Scale Card */}
+                {/* Scale Card - Green */}
                 <motion.div
                   initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.8 }}
-                  className="relative bg-primary p-6 rounded-2xl shadow-xl ml-16"
+                  className="relative bg-accent p-6 rounded-2xl shadow-xl ml-16"
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
