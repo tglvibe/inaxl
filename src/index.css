@@ -31,9 +31,9 @@
     --muted: 210 40% 96%;
     --muted-foreground: 215 70% 20%;
 
-    /* Accent - Electric Lime/Chartreuse */
-    --accent: 75 100% 45%;
-    --accent-foreground: 215 80% 8%;
+    /* Accent - Deep Forest Green / Emerald */
+    --accent: 155 100% 30%;
+    --accent-foreground: 0 0% 100%;
 
     /* Destructive */
     --destructive: 0 84% 55%;
@@ -47,8 +47,8 @@
     --radius: 0.75rem;
 
     /* INAXL Custom colors - Bold & Vibrant */
-    --inaxl-cyan: 200 100% 40%;
-    --inaxl-lime: 75 100% 45%;
+    --inaxl-cyan: 200 100% 35%;
+    --inaxl-lime: 155 100% 30%;
     --inaxl-navy: 215 80% 8%;
     --inaxl-slate: 215 60% 15%;
     
