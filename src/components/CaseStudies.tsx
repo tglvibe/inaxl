@@ -1,97 +1,62 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { ArrowUpRight, TrendingUp, Shield, Zap, Layers, Heart, Rocket } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const caseStudies = [
   {
     id: 1,
-    title: "Petzey",
-    subtitle: "National Telehealth Platform",
-    description: "Stabilized, re-engineered, and operated Petzey's national telehealth platform.",
-    icon: Heart,
-    color: "primary",
-    metrics: [
-      { value: "10×", label: "Scalability" },
-      { value: "90%", label: "Incident Reduction" },
-      { value: "Sub-second", label: "Connections" },
-    ],
-    outcomes: ["Future-ready modular architecture", "Higher development velocity"],
+    title: "Petzey — Telehealth",
+    subtitle: "Enterprise-Grade Platform Turnaround",
+    description: "Stabilized, re-engineered, and operated Petzey's national telehealth platform. Engagement: 2020-2022.",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
+    tags: ["SOC 2 Type II", "HIPAA", "24×7 NOC"],
   },
   {
     id: 2,
-    title: "NetLabs Global",
-    subtitle: "Enterprise Healthcare Infrastructure",
-    description: "Architected healthcare infrastructure: SOC 2 Type II, HIPAA, 24×7 NOC, PHI-safe engineering.",
-    icon: Shield,
-    color: "accent",
-    metrics: [
-      { value: "2", label: "Data Centers" },
-      { value: "SOC 2", label: "Certified" },
-      { value: "24×7", label: "Reliability" },
-    ],
-    outcomes: ["US–India operational continuity", "PHI-safe engineering ecosystem"],
+    title: "Enterprise-Grade Healthcare Infrastructure",
+    subtitle: "HIPAA Compliant Architecture",
+    description: "Architected the healthcare infrastructure: SOC 2 Type II, HIPAA, 24×7 NOC, PHI-safe engineering.",
+    image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=500&fit=crop",
+    tags: ["Healthcare", "Compliance", "Infrastructure"],
   },
   {
     id: 3,
-    title: "Cunningham Collective",
-    subtitle: "Positioning Intelligence Platform",
+    title: "Positioning Intelligence Platform",
+    subtitle: "AI-Powered Consulting Platform",
     description: "Translating three decades of positioning expertise into an AI-powered, consultant-ready platform.",
-    icon: Zap,
-    color: "primary",
-    metrics: [
-      { value: "40-55%", label: "Faster Creation" },
-      { value: "3×", label: "Consistency Increase" },
-      { value: "80%+", label: "Pilot Completion" },
-    ],
-    outcomes: ["30-40% faster discovery-to-deliverable cycles", "65-75% AI-generated messaging accuracy"],
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop",
+    tags: ["AI", "ML", "Platform"],
   },
   {
     id: 4,
     title: "Advanced IP Innovation",
     subtitle: "Digital Twins, XR & Blockchain",
     description: "Co-created with senior leaders from Harvard, MIT & global consulting networks.",
-    icon: Layers,
-    color: "accent",
-    metrics: [
-      { value: "12+", label: "Patentable Components" },
-      { value: "$2.8B", label: "Portfolio Valuation" },
-      { value: "72+", label: "Architectural Models" },
-    ],
-    outcomes: ["50-70% faster prototype cycles", "3 frontier innovations engineered"],
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=500&fit=crop",
+    tags: ["Blockchain", "XR", "Digital Twins"],
   },
   {
     id: 5,
     title: "Carix Health",
     subtitle: "AI-powered Healthcare Operations",
     description: "Integrated ecosystem unifying physician marketing, credentialing, contracting, and analytics.",
-    icon: TrendingUp,
-    color: "primary",
-    metrics: [
-      { value: "40-60%", label: "Faster Credentialing" },
-      { value: "30%", label: "Reduced Leakage" },
-      { value: "50%", label: "Lower Overhead" },
-    ],
-    outcomes: ["Real-time unified physician identity", "Enterprise interoperability"],
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop",
+    tags: ["Healthcare", "AI", "Analytics"],
   },
   {
     id: 6,
     title: "AxlGro",
     subtitle: "AI-Driven Growth Accelerator",
     description: "Architecting pathways to growth through company intelligence, opportunity mapping, and precision matchmaking.",
-    icon: Rocket,
-    color: "accent",
-    metrics: [
-      { value: "40%", label: "Faster Readiness" },
-      { value: "3×", label: "Match Accuracy" },
-      { value: "50-70%", label: "GTM Time Reduction" },
-    ],
-    outcomes: ["End-to-end growth lifecycle", "Global partner network enablement"],
+    image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&h=500&fit=crop",
+    tags: ["Growth", "AI", "Matchmaking"],
   },
 ];
 
 const CaseStudies = () => {
   const ref = useRef(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
@@ -102,73 +67,86 @@ const CaseStudies = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="text-center max-w-3xl mx-auto mb-12"
         >
-          <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
+          <h2 className="text-primary font-serif italic text-4xl md:text-5xl mb-6">
             Case Studies
-          </span>
-          <h2 className="text-foreground mb-6">
-            Transforming Businesses Through{" "}
-            <span className="text-primary">Innovation</span>
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Discover how we've helped leading organizations transform their businesses through innovative technology solutions.
+          <p className="text-muted-foreground">
+            Discover how we've helped leading organizations transform their businesses
+            <br className="hidden md:block" />
+            through innovative technology solutions
           </p>
         </motion.div>
 
-        {/* Case Studies Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {caseStudies.map((study, index) => (
-            <motion.article
-              key={study.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="card-premium p-6 group cursor-pointer"
-            >
-              {/* Header */}
-              <div className="flex items-start justify-between mb-4">
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                  study.color === 'primary' ? 'bg-primary/10' : 'bg-accent/10'
-                }`}>
-                  <study.icon className={`w-6 h-6 ${study.color === 'primary' ? 'text-primary' : 'text-accent'}`} />
-                </div>
-                <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-              </div>
-
-              {/* Title */}
-              <h4 className="text-xl font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
-                {study.title}
-              </h4>
-              <p className={`text-sm font-medium mb-3 ${study.color === 'primary' ? 'text-primary' : 'text-accent'}`}>
-                {study.subtitle}
-              </p>
-              <p className="text-muted-foreground text-sm mb-5">{study.description}</p>
-
-              {/* Metrics */}
-              <div className="grid grid-cols-3 gap-2 mb-4">
-                {study.metrics.map((metric) => (
-                  <div key={metric.label} className="text-center p-2 rounded-lg bg-secondary">
-                    <p className="text-lg font-bold text-foreground">{metric.value}</p>
-                    <p className="text-xs text-muted-foreground">{metric.label}</p>
+        {/* Horizontal Scroll Container */}
+        <div className="relative">
+          <div 
+            ref={scrollContainerRef}
+            className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent"
+            style={{ scrollbarWidth: 'thin' }}
+          >
+            {caseStudies.map((study, index) => (
+              <motion.article
+                key={study.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="flex-shrink-0 w-[340px] md:w-[380px] snap-start group cursor-pointer"
+              >
+                <div className="relative h-full rounded-2xl overflow-hidden bg-card border border-border shadow-sm hover:shadow-lg transition-shadow">
+                  {/* Image */}
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src={study.image} 
+                      alt={study.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   </div>
-                ))}
-              </div>
 
-              {/* Outcomes */}
-              <div className="border-t border-border pt-4">
-                <ul className="space-y-1">
-                  {study.outcomes.map((outcome, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <span className={`w-1.5 h-1.5 rounded-full ${study.color === 'primary' ? 'bg-primary' : 'bg-accent'}`} />
-                      {outcome}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.article>
-          ))}
+                  {/* Content */}
+                  <div className="p-5">
+                    <h4 className="text-lg font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
+                      {study.title}
+                    </h4>
+                    <p className="text-sm font-medium text-primary mb-3">
+                      {study.subtitle}
+                    </p>
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                      {study.description}
+                    </p>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2">
+                      {study.tags.map((tag) => (
+                        <span 
+                          key={tag} 
+                          className="text-xs px-3 py-1 rounded-full bg-secondary text-muted-foreground border border-border"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
         </div>
+
+        {/* View All CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="text-center mt-10"
+        >
+          <button className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all border border-primary rounded-full px-6 py-3 hover:bg-primary hover:text-primary-foreground">
+            View All Case Studies
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </motion.div>
       </div>
     </section>
   );
