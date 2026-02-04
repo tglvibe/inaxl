@@ -28,7 +28,7 @@ const About = () => {
   return (
     <section id="about" className="section-padding bg-background" ref={ref}>
       <div className="section-container">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-end">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
