@@ -51,7 +51,7 @@ const EngagementModels = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="section-padding bg-gradient-section" ref={ref}>
+    <section className="section-padding bg-background" ref={ref}>
       <div className="section-container">
         {/* Header */}
         <motion.div
@@ -65,7 +65,7 @@ const EngagementModels = () => {
           </span>
           <h2 className="text-foreground mb-6">
             Flexible Models for{" "}
-            <span className="text-gradient-primary">Every Stage</span>
+            <span className="text-primary">Every Stage</span>
           </h2>
           <p className="text-lg text-muted-foreground">
             At INAXL, we align our engagement models to your stage, speed, and scale. 4 engagement models, 100% outcome focused.
@@ -83,7 +83,7 @@ const EngagementModels = () => {
               className="card-premium p-8"
             >
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
                   <model.icon className="w-7 h-7 text-primary" />
                 </div>
                 <div>

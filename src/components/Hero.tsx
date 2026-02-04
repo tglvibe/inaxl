@@ -3,7 +3,7 @@ import { ArrowRight, Zap, TrendingUp, Shield } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section id="hero" className="relative min-h-screen flex items-center bg-gradient-hero overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center bg-background overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-5">
@@ -43,7 +43,7 @@ const Hero = () => {
 
             <h1 className="text-foreground mb-6">
               Accelerating{" "}
-              <span className="text-gradient-primary">Innovation</span>
+              <span className="text-primary">Innovation</span>
               <br />
               with AI & Engineering
             </h1>
@@ -120,7 +120,7 @@ const Hero = () => {
               <div className="absolute inset-8 rounded-full border-2 border-dashed border-accent/20 animate-spin" style={{ animationDuration: "20s", animationDirection: "reverse" }} />
               
               {/* Center circle */}
-              <div className="absolute inset-16 rounded-full bg-gradient-to-br from-primary/10 to-accent/10 backdrop-blur-sm flex items-center justify-center animate-pulse-glow">
+              <div className="absolute inset-16 rounded-full bg-primary/10 backdrop-blur-sm flex items-center justify-center animate-pulse-glow">
                 <div className="text-center">
                   <p className="text-sm font-medium text-muted-foreground">Conceptualize</p>
                   <p className="text-2xl font-bold text-primary">Build</p>

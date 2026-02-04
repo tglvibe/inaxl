@@ -84,7 +84,7 @@ const Technologies = () => {
   const activeData = techCategories.find((cat) => cat.id === activeCategory);
 
   return (
-    <section id="technologies" className="section-padding bg-gradient-section" ref={ref}>
+    <section id="technologies" className="section-padding bg-background" ref={ref}>
       <div className="section-container">
         {/* Header */}
         <motion.div
@@ -98,7 +98,7 @@ const Technologies = () => {
           </span>
           <h2 className="text-foreground mb-6">
             Engineering the Future with{" "}
-            <span className="text-gradient-primary">Advanced Platforms</span>
+            <span className="text-primary">Advanced Platforms</span>
           </h2>
           <p className="text-lg text-muted-foreground">
             AI-native architectures, cloud-native systems, and next-generation digital infrastructure for enterprise-grade solutions.
@@ -142,7 +142,7 @@ const Technologies = () => {
             {activeData && (
               <>
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
                     <activeData.icon className="w-7 h-7 text-primary" />
                   </div>
                   <h3 className="text-xl font-semibold text-foreground">{activeData.title}</h3>

@@ -72,7 +72,7 @@ const Industries = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="industries" className="section-padding bg-gradient-section" ref={ref}>
+    <section id="industries" className="section-padding bg-background" ref={ref}>
       <div className="section-container">
         {/* Header */}
         <motion.div
@@ -86,7 +86,7 @@ const Industries = () => {
           </span>
           <h2 className="text-foreground mb-6">
             Transforming Industries with{" "}
-            <span className="text-gradient-primary">AI & Technology</span>
+            <span className="text-primary">AI & Technology</span>
           </h2>
           <p className="text-lg text-muted-foreground">
             Deep domain expertise across diverse sectors, delivering tailored solutions for industry-specific challenges.
@@ -103,7 +103,7 @@ const Industries = () => {
               transition={{ duration: 0.4, delay: index * 0.05 }}
               className="card-premium p-5 group text-center"
             >
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                 <industry.icon className="w-6 h-6 text-primary" />
               </div>
               <h5 className="font-semibold text-foreground mb-2 text-sm group-hover:text-primary transition-colors">

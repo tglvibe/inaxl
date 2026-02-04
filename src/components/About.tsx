@@ -26,7 +26,7 @@ const About = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="section-padding bg-gradient-section" ref={ref}>
+    <section id="about" className="section-padding bg-background" ref={ref}>
       <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Content */}
@@ -84,7 +84,7 @@ const About = () => {
                 transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                 className="card-premium p-6 flex gap-5"
               >
-                <div className="shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+                <div className="shrink-0 w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
                   <pillar.icon className="w-7 h-7 text-primary" />
                 </div>
                 <div>

@@ -53,7 +53,7 @@ const Testimonials = () => {
           </span>
           <h2 className="text-foreground mb-6">
             Building{" "}
-            <span className="text-gradient-primary">Lasting Relationships</span>
+            <span className="text-primary">Lasting Relationships</span>
           </h2>
           <p className="text-lg text-muted-foreground">
             What our partners say about working with INAXL.
@@ -87,7 +87,7 @@ const Testimonials = () => {
 
               {/* Author */}
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground font-bold text-lg">
+                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-lg">
                   {testimonial.author.charAt(0)}
                 </div>
                 <div>
