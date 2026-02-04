@@ -7,68 +7,68 @@
 
 @layer base {
   :root {
-    /* Base colors - Light theme (crisp white) */
+    /* Base colors - Pure white, deep navy text */
     --background: 0 0% 100%;
-    --foreground: 210 60% 10%;
+    --foreground: 215 80% 8%;
 
-    /* Card surfaces - Pure white with navy contrast */
+    /* Card surfaces */
     --card: 0 0% 100%;
-    --card-foreground: 210 60% 10%;
+    --card-foreground: 215 80% 8%;
 
     /* Popover */
     --popover: 0 0% 100%;
-    --popover-foreground: 210 60% 10%;
+    --popover-foreground: 215 80% 8%;
 
-    /* Primary - Deep INAXL Blue (darker, richer) */
-    --primary: 199 100% 35%;
+    /* Primary - Deep Electric Blue */
+    --primary: 210 100% 25%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Light cyan tint instead of grey */
-    --secondary: 199 40% 96%;
-    --secondary-foreground: 210 60% 10%;
+    /* Secondary - Soft sky tint */
+    --secondary: 210 50% 97%;
+    --secondary-foreground: 215 80% 8%;
 
-    /* Muted surfaces - Light blue tint instead of grey */
-    --muted: 199 30% 95%;
-    --muted-foreground: 210 50% 30%;
+    /* Muted - Very light blue tint (NO GREY) */
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 70% 20%;
 
-    /* Accent - Vibrant INAXL Lime */
-    --accent: 68 100% 42%;
-    --accent-foreground: 210 60% 10%;
+    /* Accent - Electric Lime/Chartreuse */
+    --accent: 75 100% 45%;
+    --accent-foreground: 215 80% 8%;
 
     /* Destructive */
     --destructive: 0 84% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Borders and inputs - Blue-tinted instead of grey */
-    --border: 199 30% 88%;
-    --input: 199 30% 88%;
-    --ring: 199 100% 35%;
+    /* Borders - Light blue tinted */
+    --border: 210 40% 90%;
+    --input: 210 40% 90%;
+    --ring: 210 100% 25%;
 
     --radius: 0.75rem;
 
-    /* INAXL Custom colors - Deeper, richer tones */
-    --inaxl-cyan: 199 100% 35%;
-    --inaxl-lime: 68 100% 42%;
-    --inaxl-navy: 210 70% 12%;
-    --inaxl-slate: 210 50% 25%;
+    /* INAXL Custom colors - Bold & Vibrant */
+    --inaxl-cyan: 200 100% 40%;
+    --inaxl-lime: 75 100% 45%;
+    --inaxl-navy: 215 80% 8%;
+    --inaxl-slate: 215 60% 15%;
     
-    /* Shadow tokens - Deeper, more prominent */
-    --shadow-sm: 0 1px 3px 0 hsl(210, 60%, 10%, 0.08);
-    --shadow-md: 0 4px 8px -1px hsl(210, 60%, 10%, 0.1), 0 2px 4px -1px hsl(210, 60%, 10%, 0.06);
-    --shadow-lg: 0 12px 30px -3px hsl(210, 60%, 10%, 0.12), 0 4px 8px -2px hsl(210, 60%, 10%, 0.06);
-    --shadow-xl: 0 24px 50px -5px hsl(210, 60%, 10%, 0.15), 0 12px 15px -5px hsl(210, 60%, 10%, 0.08);
-    --shadow-card: 0 4px 24px -4px hsl(199, 100%, 35%, 0.15);
-    --shadow-card-hover: 0 16px 40px -8px hsl(199, 100%, 35%, 0.25);
+    /* Shadow tokens - Deep navy shadows */
+    --shadow-sm: 0 1px 3px 0 hsl(215, 80%, 8%, 0.1);
+    --shadow-md: 0 4px 8px -1px hsl(215, 80%, 8%, 0.12), 0 2px 4px -1px hsl(215, 80%, 8%, 0.08);
+    --shadow-lg: 0 12px 30px -3px hsl(215, 80%, 8%, 0.15), 0 4px 8px -2px hsl(215, 80%, 8%, 0.08);
+    --shadow-xl: 0 24px 50px -5px hsl(215, 80%, 8%, 0.2), 0 12px 15px -5px hsl(215, 80%, 8%, 0.1);
+    --shadow-card: 0 4px 24px -4px hsl(210, 100%, 25%, 0.18);
+    --shadow-card-hover: 0 16px 40px -8px hsl(210, 100%, 25%, 0.3);
 
     /* Sidebar */
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 210 60% 10%;
-    --sidebar-primary: 199 100% 35%;
+    --sidebar-foreground: 215 80% 8%;
+    --sidebar-primary: 210 100% 25%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 199 40% 96%;
-    --sidebar-accent-foreground: 210 60% 10%;
-    --sidebar-border: 199 30% 88%;
-    --sidebar-ring: 199 100% 35%;
+    --sidebar-accent: 210 50% 97%;
+    --sidebar-accent-foreground: 215 80% 8%;
+    --sidebar-border: 210 40% 90%;
+    --sidebar-ring: 210 100% 25%;
   }
 
   .dark {
