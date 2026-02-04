@@ -30,7 +30,7 @@ const InnovationAccelerator = () => {
             </span>
             <h2 className="text-foreground mb-4">
               INAXL Innovation{" "}
-              <span className="text-gradient-primary">Accelerator</span>
+              <span className="text-primary">Accelerator</span>
             </h2>
             <p className="text-lg text-muted-foreground mb-6">
               Your strategic partner for research, prototyping, and future-ready engineering.

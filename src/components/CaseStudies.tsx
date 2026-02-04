@@ -109,7 +109,7 @@ const CaseStudies = () => {
           </span>
           <h2 className="text-foreground mb-6">
             Transforming Businesses Through{" "}
-            <span className="text-gradient-primary">Innovation</span>
+            <span className="text-primary">Innovation</span>
           </h2>
           <p className="text-lg text-muted-foreground">
             Discover how we've helped leading organizations transform their businesses through innovative technology solutions.

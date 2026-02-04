@@ -88,7 +88,7 @@ const Services = () => {
           </span>
           <h2 className="text-foreground mb-6">
             Comprehensive Solutions for{" "}
-            <span className="text-gradient-primary">Digital Excellence</span>
+            <span className="text-primary">Digital Excellence</span>
           </h2>
           <p className="text-lg text-muted-foreground">
             From enterprise technology services to innovative product development, we deliver end-to-end solutions that drive transformation.
