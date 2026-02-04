@@ -209,9 +209,9 @@
     background: hsl(var(--accent));
   }
 
-  /* Glass effect */
+  /* Glass effect - removed, using solid white */
   .glass {
-    @apply bg-white/80 backdrop-blur-lg border border-white/20;
+    @apply bg-background border border-border;
   }
 
   /* Animate on scroll */
