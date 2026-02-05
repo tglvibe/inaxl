@@ -21,14 +21,14 @@ const Hero = () => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
             >
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span className="text-sm font-medium text-primary">AI-Powered Transformation</span>
+              <span className="text-sm font-medium text-primary">Measurable results. Tangible impact.</span>
             </motion.div>
 
             <h1 className="text-foreground mb-6">
               Accelerating{" "}
-              <span className="text-primary">Innovation</span>
+              <span className="text-primary">Transformation</span>
               <br />
-              with AI & Engineering
+              with AI Powered Innovation
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-8">
