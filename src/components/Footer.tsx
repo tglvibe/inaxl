@@ -1,13 +1,7 @@
-import { useRef, useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import logo from "@/assets/logo.png";
 import { Linkedin, Twitter } from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const Footer = () => {
-  const footerRef = useRef<HTMLElement>(null);
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
@@ -31,81 +25,12 @@ const Footer = () => {
     ],
   };
 
-  useEffect(() => {
-    if (!footerRef.current) return;
-
-    const ctx = gsap.context(() => {
-      // Footer reveal animation
-      gsap.fromTo(
-        footerRef.current,
-        { opacity: 0, y: 60 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: footerRef.current,
-            start: "top 95%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
-      // Footer columns stagger
-      const columns = footerRef.current?.querySelectorAll(".footer-column");
-      if (columns) {
-        gsap.fromTo(
-          columns,
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: footerRef.current,
-              start: "top 90%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }
-
-      // Social icons
-      const socials = footerRef.current?.querySelectorAll(".social-icon");
-      if (socials) {
-        socials.forEach((icon) => {
-          icon.addEventListener("mouseenter", () => {
-            gsap.to(icon, { 
-              scale: 1.2, 
-              rotation: 5,
-              duration: 0.3, 
-              ease: "back.out(2)" 
-            });
-          });
-          icon.addEventListener("mouseleave", () => {
-            gsap.to(icon, { 
-              scale: 1, 
-              rotation: 0,
-              duration: 0.3, 
-              ease: "power2.out" 
-            });
-          });
-        });
-      }
-    }, footerRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <footer ref={footerRef} className="bg-inaxl-navy text-primary-foreground">
+    <footer className="bg-inaxl-navy text-primary-foreground">
       <div className="section-container py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand Column */}
-          <div className="footer-column col-span-2 md:col-span-4 lg:col-span-1">
+          <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <img src={logo} alt="INAXL" className="h-10 mb-4 brightness-0 invert" />
             <p className="text-primary-foreground/60 text-sm mb-4">
               Accelerating Innovation with AI-powered transformation and world-class engineering.
@@ -113,14 +38,14 @@ const Footer = () => {
             <div className="flex gap-3">
               <a
                 href="#"
-                className="social-icon w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-accent transition-colors"
+                className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-accent transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
               <a
                 href="#"
-                className="social-icon w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-accent transition-colors"
+                className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-accent transition-colors"
                 aria-label="Twitter"
               >
                 <Twitter className="w-5 h-5" />
@@ -129,14 +54,14 @@ const Footer = () => {
           </div>
 
           {/* Company Links */}
-          <div className="footer-column">
+          <div>
             <h6 className="font-semibold text-primary-foreground mb-4">Company</h6>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-sm text-primary-foreground/60 hover:text-accent transition-colors inline-block hover:translate-x-1 duration-300"
+                    className="text-sm text-primary-foreground/60 hover:text-accent transition-colors"
                   >
                     {link.label}
                   </a>
@@ -146,14 +71,14 @@ const Footer = () => {
           </div>
 
           {/* Services Links */}
-          <div className="footer-column">
+          <div>
             <h6 className="font-semibold text-primary-foreground mb-4">Services</h6>
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-sm text-primary-foreground/60 hover:text-accent transition-colors inline-block hover:translate-x-1 duration-300"
+                    className="text-sm text-primary-foreground/60 hover:text-accent transition-colors"
                   >
                     {link.label}
                   </a>
@@ -163,14 +88,14 @@ const Footer = () => {
           </div>
 
           {/* Industries Links */}
-          <div className="footer-column">
+          <div>
             <h6 className="font-semibold text-primary-foreground mb-4">Industries</h6>
             <ul className="space-y-3">
               {footerLinks.industries.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-sm text-primary-foreground/60 hover:text-accent transition-colors inline-block hover:translate-x-1 duration-300"
+                    className="text-sm text-primary-foreground/60 hover:text-accent transition-colors"
                   >
                     {link.label}
                   </a>
@@ -180,14 +105,14 @@ const Footer = () => {
           </div>
 
           {/* CTA */}
-          <div className="footer-column">
+          <div>
             <h6 className="font-semibold text-primary-foreground mb-4">Start a Project</h6>
             <p className="text-sm text-primary-foreground/60 mb-4">
               Ready to transform your business with AI and technology?
             </p>
             <a
               href="#contact"
-              className="inline-block px-4 py-2 rounded-lg bg-accent text-accent-foreground text-sm font-medium hover:bg-accent/90 transition-all hover:scale-105 duration-300"
+              className="inline-block px-4 py-2 rounded-lg bg-accent text-accent-foreground text-sm font-medium hover:bg-accent/90 transition-colors"
             >
               Get in Touch
             </a>

@@ -1,6 +1,6 @@
-import { useRef, useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 import { 
   Code2, 
   BarChart3, 
@@ -11,8 +11,6 @@ import {
   Package,
   Briefcase
 } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const verticals = [
   {
@@ -72,127 +70,19 @@ const verticals = [
 ];
 
 const Services = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const verticalsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
-    const ctx = gsap.context(() => {
-      // Header animation with text reveal
-      gsap.fromTo(
-        headerRef.current,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
-      // Vertical sections with parallax-like stagger
-      if (verticalsRef.current) {
-        const verticalSections = verticalsRef.current.querySelectorAll(".vertical-section");
-        
-        verticalSections.forEach((section, vIndex) => {
-          // Vertical header
-          const header = section.querySelector(".vertical-header");
-          gsap.fromTo(
-            header,
-            { opacity: 0, x: -40 },
-            {
-              opacity: 1,
-              x: 0,
-              duration: 0.8,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: section,
-                start: "top 80%",
-                toggleActions: "play none none reverse",
-              },
-            }
-          );
-
-          // Offering cards with 3D flip effect
-          const cards = section.querySelectorAll(".offering-card");
-          cards.forEach((card, cIndex) => {
-            gsap.fromTo(
-              card,
-              { 
-                opacity: 0, 
-                y: 60,
-                rotateX: -20,
-                scale: 0.9,
-                transformPerspective: 1000
-              },
-              {
-                opacity: 1,
-                y: 0,
-                rotateX: 0,
-                scale: 1,
-                duration: 0.7,
-                delay: cIndex * 0.1,
-                ease: "power3.out",
-                scrollTrigger: {
-                  trigger: section,
-                  start: "top 75%",
-                  toggleActions: "play none none reverse",
-                },
-              }
-            );
-
-            // Hover effects
-            const icon = card.querySelector(".icon-container");
-            card.addEventListener("mouseenter", () => {
-              gsap.to(card, { 
-                y: -8, 
-                scale: 1.02,
-                boxShadow: "0 20px 40px -10px rgba(0,0,0,0.15)",
-                duration: 0.3, 
-                ease: "power2.out" 
-              });
-              gsap.to(icon, { 
-                scale: 1.15, 
-                rotation: 5,
-                duration: 0.3, 
-                ease: "back.out(1.7)" 
-              });
-            });
-            card.addEventListener("mouseleave", () => {
-              gsap.to(card, { 
-                y: 0, 
-                scale: 1,
-                boxShadow: "var(--shadow-card)",
-                duration: 0.3, 
-                ease: "power2.out" 
-              });
-              gsap.to(icon, { 
-                scale: 1, 
-                rotation: 0,
-                duration: 0.3, 
-                ease: "power2.out" 
-              });
-            });
-          });
-        });
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="services" className="section-padding bg-background" ref={sectionRef}>
+    <section id="services" className="section-padding bg-background" ref={ref}>
       <div className="section-container">
         {/* Header */}
-        <div ref={headerRef} className="text-center max-w-3xl mx-auto mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
           <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
             Business Verticals & Offerings
           </span>
@@ -203,14 +93,19 @@ const Services = () => {
           <p className="text-lg text-muted-foreground">
             From enterprise technology services to innovative product development, we deliver end-to-end solutions that drive transformation.
           </p>
-        </div>
+        </motion.div>
 
         {/* Verticals */}
-        <div ref={verticalsRef} className="space-y-16">
-          {verticals.map((vertical) => (
-            <div key={vertical.title} className="vertical-section">
+        <div className="space-y-16">
+          {verticals.map((vertical, vIndex) => (
+            <motion.div
+              key={vertical.title}
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: vIndex * 0.2 }}
+            >
               {/* Vertical Header */}
-              <div className="vertical-header mb-8">
+              <div className="mb-8">
                 <div className="flex items-center gap-3 mb-3">
                   <div className={`w-3 h-3 rounded-full ${vertical.color === 'primary' ? 'bg-primary' : 'bg-accent'}`} />
                   <h3 className="text-foreground">{vertical.title}</h3>
@@ -220,13 +115,15 @@ const Services = () => {
 
               {/* Offerings Grid */}
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {vertical.offerings.map((offering) => (
-                  <div
+                {vertical.offerings.map((offering, oIndex) => (
+                  <motion.div
                     key={offering.title}
-                    className="offering-card card-premium p-6 group cursor-pointer"
-                    style={{ transformStyle: "preserve-3d" }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.3 + oIndex * 0.1 }}
+                    className="card-premium p-6 group"
                   >
-                    <div className={`icon-container w-12 h-12 rounded-xl mb-4 flex items-center justify-center transition-colors duration-300 ${
+                    <div className={`w-12 h-12 rounded-xl mb-4 flex items-center justify-center transition-all duration-300 group-hover:scale-110 ${
                       vertical.color === 'primary' 
                         ? 'bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground' 
                         : 'bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-foreground'
@@ -237,10 +134,10 @@ const Services = () => {
                       {offering.title}
                     </h5>
                     <p className="text-sm text-muted-foreground">{offering.description}</p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -1,6 +1,6 @@
-import { useRef, useState, useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef, useState } from "react";
 import { 
   Brain, 
   Cloud, 
@@ -10,8 +10,6 @@ import {
   Cpu,
   ChevronRight
 } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const techCategories = [
   {
@@ -79,121 +77,22 @@ const techCategories = [
 ];
 
 const Technologies = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const tabsRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [activeCategory, setActiveCategory] = useState("ai");
 
   const activeData = techCategories.find((cat) => cat.id === activeCategory);
 
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
-    const ctx = gsap.context(() => {
-      // Header animation
-      gsap.fromTo(
-        headerRef.current,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
-      // Tabs animation
-      if (tabsRef.current) {
-        const tabs = tabsRef.current.querySelectorAll(".tech-tab");
-        gsap.fromTo(
-          tabs,
-          { opacity: 0, x: -40 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.5,
-            stagger: 0.08,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: tabsRef.current,
-              start: "top 80%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }
-
-      // Content card
-      gsap.fromTo(
-        contentRef.current,
-        { opacity: 0, x: 40, scale: 0.95 },
-        {
-          opacity: 1,
-          x: 0,
-          scale: 1,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: contentRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  // Animate content change
-  useEffect(() => {
-    if (!contentRef.current) return;
-    
-    const items = contentRef.current.querySelectorAll(".tech-item");
-    gsap.fromTo(
-      items,
-      { opacity: 0, x: 20 },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 0.4,
-        stagger: 0.08,
-        ease: "power2.out",
-      }
-    );
-  }, [activeCategory]);
-
-  const handleTabClick = (id: string, e: React.MouseEvent<HTMLButtonElement>) => {
-    const button = e.currentTarget;
-    
-    // Magnetic ripple effect
-    gsap.to(button, {
-      scale: 0.95,
-      duration: 0.1,
-      ease: "power2.in",
-      onComplete: () => {
-        gsap.to(button, {
-          scale: 1,
-          duration: 0.3,
-          ease: "back.out(2)",
-        });
-      },
-    });
-    
-    setActiveCategory(id);
-  };
-
   return (
-    <section id="technologies" className="section-padding bg-background" ref={sectionRef}>
+    <section id="technologies" className="section-padding bg-background" ref={ref}>
       <div className="section-container">
         {/* Header */}
-        <div ref={headerRef} className="text-center max-w-3xl mx-auto mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
           <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
             Technologies We Work With
           </span>
@@ -204,17 +103,22 @@ const Technologies = () => {
           <p className="text-lg text-muted-foreground">
             AI-native architectures, cloud-native systems, and next-generation digital infrastructure for enterprise-grade solutions.
           </p>
-        </div>
+        </motion.div>
 
         {/* Technology Grid */}
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Category Tabs */}
-          <div ref={tabsRef} className="space-y-3">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-3"
+          >
             {techCategories.map((category) => (
               <button
                 key={category.id}
-                onClick={(e) => handleTabClick(category.id, e)}
-                className={`tech-tab w-full flex items-center gap-4 p-4 rounded-xl text-left transition-all duration-300 ${
+                onClick={() => setActiveCategory(category.id)}
+                className={`w-full flex items-center gap-4 p-4 rounded-xl text-left transition-all duration-300 ${
                   activeCategory === category.id
                     ? "bg-primary text-primary-foreground shadow-lg"
                     : "bg-card hover:bg-secondary border border-border"
@@ -222,14 +126,17 @@ const Technologies = () => {
               >
                 <category.icon className={`w-6 h-6 ${activeCategory === category.id ? "text-primary-foreground" : "text-primary"}`} />
                 <span className="font-medium text-sm">{category.title}</span>
-                <ChevronRight className={`w-4 h-4 ml-auto transition-transform duration-300 ${activeCategory === category.id ? "rotate-90" : ""}`} />
+                <ChevronRight className={`w-4 h-4 ml-auto transition-transform ${activeCategory === category.id ? "rotate-90" : ""}`} />
               </button>
             ))}
-          </div>
+          </motion.div>
 
           {/* Active Category Details */}
-          <div
-            ref={contentRef}
+          <motion.div
+            key={activeCategory}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4 }}
             className="lg:col-span-2 card-premium p-8"
           >
             {activeData && (
@@ -242,18 +149,21 @@ const Technologies = () => {
                 </div>
                 <ul className="space-y-4">
                   {activeData.items.map((item, index) => (
-                    <li
+                    <motion.li
                       key={index}
-                      className="tech-item flex items-start gap-3"
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                      className="flex items-start gap-3"
                     >
                       <span className="shrink-0 w-2 h-2 rounded-full bg-accent mt-2" />
                       <span className="text-muted-foreground">{item}</span>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
               </>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

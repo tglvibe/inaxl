@@ -1,9 +1,7 @@
-import { useRef, useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 import { Building2, Brain, Users } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const pillars = [
   {
@@ -24,120 +22,19 @@ const pillars = [
 ];
 
 const About = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const leftRef = useRef<HTMLDivElement>(null);
-  const rightRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
-  const statCounterRefs = useRef<(HTMLParagraphElement | null)[]>([]);
-
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
-    const ctx = gsap.context(() => {
-      // Left content animation
-      gsap.fromTo(
-        leftRef.current,
-        { opacity: 0, x: -60 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 70%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
-      // Right pillars stagger animation
-      if (rightRef.current) {
-        const cards = rightRef.current.querySelectorAll(".pillar-card");
-        gsap.fromTo(
-          cards,
-          { opacity: 0, x: 60, rotateY: -10 },
-          {
-            opacity: 1,
-            x: 0,
-            rotateY: 0,
-            duration: 0.8,
-            stagger: 0.15,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: rightRef.current,
-              start: "top 75%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-
-        // Hover effect for cards
-        cards.forEach((card) => {
-          card.addEventListener("mouseenter", () => {
-            gsap.to(card, { scale: 1.02, duration: 0.3, ease: "power2.out" });
-          });
-          card.addEventListener("mouseleave", () => {
-            gsap.to(card, { scale: 1, duration: 0.3, ease: "power2.out" });
-          });
-        });
-      }
-
-      // Stats counter animation
-      const statValues = [10, 100, 50];
-      const statSuffixes = ["+", "+", "+"];
-      
-      statCounterRefs.current.forEach((el, index) => {
-        if (!el) return;
-        
-        const obj = { value: 0 };
-        gsap.to(obj, {
-          value: statValues[index],
-          duration: 2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: statsRef.current,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-          onUpdate: () => {
-            el.innerText = Math.round(obj.value) + statSuffixes[index];
-          },
-        });
-      });
-
-      // Stats cards stagger
-      if (statsRef.current) {
-        const statCards = statsRef.current.querySelectorAll(".stat-card");
-        gsap.fromTo(
-          statCards,
-          { opacity: 0, y: 30, scale: 0.9 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: "back.out(1.7)",
-            scrollTrigger: {
-              trigger: statsRef.current,
-              start: "top 85%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="section-padding bg-background" ref={sectionRef}>
+    <section id="about" className="section-padding bg-background" ref={ref}>
       <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-end">
           {/* Left Content */}
-          <div ref={leftRef}>
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8 }}
+          >
             <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
               Who We Are
             </span>
@@ -156,44 +53,36 @@ const About = () => {
             </p>
 
             {/* Key Stats */}
-            <div ref={statsRef} className="grid grid-cols-3 gap-4">
-              <div className="stat-card text-center p-4 rounded-xl bg-card shadow-card border border-border">
-                <p 
-                  ref={(el) => (statCounterRefs.current[0] = el)}
-                  className="text-3xl font-bold text-primary"
-                >
-                  0+
-                </p>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="text-center p-4 rounded-xl bg-card shadow-card border border-border">
+                <p className="text-3xl font-bold text-primary">10+</p>
                 <p className="text-sm text-muted-foreground">Industries</p>
               </div>
-              <div className="stat-card text-center p-4 rounded-xl bg-card shadow-card border border-border">
-                <p 
-                  ref={(el) => (statCounterRefs.current[1] = el)}
-                  className="text-3xl font-bold text-accent"
-                >
-                  0+
-                </p>
+              <div className="text-center p-4 rounded-xl bg-card shadow-card border border-border">
+                <p className="text-3xl font-bold text-accent">100+</p>
                 <p className="text-sm text-muted-foreground">Engineers</p>
               </div>
-              <div className="stat-card text-center p-4 rounded-xl bg-card shadow-card border border-border">
-                <p 
-                  ref={(el) => (statCounterRefs.current[2] = el)}
-                  className="text-3xl font-bold text-primary"
-                >
-                  0+
-                </p>
+              <div className="text-center p-4 rounded-xl bg-card shadow-card border border-border">
+                <p className="text-3xl font-bold text-primary">50+</p>
                 <p className="text-sm text-muted-foreground">Projects</p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right - Pillars */}
-          <div ref={rightRef} className="space-y-6">
-            {pillars.map((pillar) => (
-              <div
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="space-y-6"
+          >
+            {pillars.map((pillar, index) => (
+              <motion.div
                 key={pillar.title}
-                className="pillar-card card-premium p-6 flex gap-5 cursor-pointer"
-                style={{ transformStyle: "preserve-3d" }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                className="card-premium p-6 flex gap-5"
               >
                 <div className="shrink-0 w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
                   <pillar.icon className="w-7 h-7 text-primary" />
@@ -202,9 +91,9 @@ const About = () => {
                   <h4 className="text-lg font-semibold text-foreground mb-2">{pillar.title}</h4>
                   <p className="text-muted-foreground">{pillar.description}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
