@@ -1,7 +1,10 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
+import MagneticButton from "./animations/MagneticButton";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const caseStudies = [
   {
@@ -55,20 +58,121 @@ const caseStudies = [
 ];
 
 const CaseStudies = () => {
-  const ref = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const ctaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Header animation
+      gsap.fromTo(
+        headerRef.current,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Cards with horizontal scroll reveal
+      if (scrollContainerRef.current) {
+        const cards = scrollContainerRef.current.querySelectorAll(".case-card");
+        
+        cards.forEach((card, index) => {
+          gsap.fromTo(
+            card,
+            { 
+              opacity: 0, 
+              y: 60,
+              scale: 0.9,
+              rotateY: -10
+            },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              rotateY: 0,
+              duration: 0.7,
+              delay: index * 0.1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: scrollContainerRef.current,
+                start: "top 80%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+
+          // Hover effects
+          const image = card.querySelector(".case-image");
+          
+          card.addEventListener("mouseenter", () => {
+            gsap.to(card, { 
+              y: -12, 
+              scale: 1.02,
+              boxShadow: "0 25px 50px -12px rgba(0,0,0,0.2)",
+              duration: 0.4, 
+              ease: "power2.out" 
+            });
+            gsap.to(image, { 
+              scale: 1.1,
+              duration: 0.6, 
+              ease: "power2.out" 
+            });
+          });
+          card.addEventListener("mouseleave", () => {
+            gsap.to(card, { 
+              y: 0, 
+              scale: 1,
+              boxShadow: "none",
+              duration: 0.4, 
+              ease: "power2.out" 
+            });
+            gsap.to(image, { 
+              scale: 1,
+              duration: 0.4, 
+              ease: "power2.out" 
+            });
+          });
+        });
+      }
+
+      // CTA button
+      gsap.fromTo(
+        ctaRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ctaRef.current,
+            start: "top 90%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="case-studies" className="section-padding bg-background" ref={ref}>
+    <section id="case-studies" className="section-padding bg-background" ref={sectionRef}>
       <div className="section-container">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-12"
-        >
+        <div ref={headerRef} className="text-center max-w-3xl mx-auto mb-12">
           <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
             Our Work
           </span>
@@ -79,7 +183,7 @@ const CaseStudies = () => {
             Discover how we've helped leading organizations transform their businesses
             through innovative technology solutions
           </p>
-        </motion.div>
+        </div>
 
         {/* Horizontal Scroll Container */}
         <div className="relative">
@@ -88,21 +192,19 @@ const CaseStudies = () => {
             className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent"
             style={{ scrollbarWidth: 'thin' }}
           >
-            {caseStudies.map((study, index) => (
-              <motion.article
+            {caseStudies.map((study) => (
+              <article
                 key={study.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex-shrink-0 w-[340px] md:w-[380px] snap-start group cursor-pointer"
+                className="case-card flex-shrink-0 w-[340px] md:w-[380px] snap-start group cursor-pointer"
+                style={{ transformStyle: "preserve-3d" }}
               >
-                <div className="relative h-full rounded-2xl overflow-hidden bg-card border border-border shadow-sm hover:shadow-lg transition-shadow">
+                <div className="relative h-full rounded-2xl overflow-hidden bg-card border border-border">
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden">
                     <img 
                       src={study.image} 
                       alt={study.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="case-image w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   </div>
@@ -132,23 +234,20 @@ const CaseStudies = () => {
                     </div>
                   </div>
                 </div>
-              </motion.article>
+              </article>
             ))}
           </div>
         </div>
 
         {/* View All CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center mt-10"
-        >
-          <button className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all border border-primary rounded-full px-6 py-3 hover:bg-primary hover:text-primary-foreground">
-            View All Case Studies
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        </motion.div>
+        <div ref={ctaRef} className="text-center mt-10">
+          <MagneticButton>
+            <button className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all border border-primary rounded-full px-6 py-3 hover:bg-primary hover:text-primary-foreground">
+              View All Case Studies
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </MagneticButton>
+        </div>
       </div>
     </section>
   );
