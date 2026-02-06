@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import heroVisual from "@/assets/hero-visual.png";
 
 const Hero = () => {
   return (
@@ -21,6 +20,10 @@ const Hero = () => {
               with AI Powered Innovation
             </h1>
 
+            <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-8">
+              We build AI-driven products that help you outrun the competition.
+            </p>
+
             {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -38,21 +41,49 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Visual - Bold Geometric Image */}
+          {/* Right Visual - Conceptualize / Build / Scale */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative hidden lg:block"
+            className="relative hidden lg:flex items-center justify-center"
           >
-            <div className="relative w-full max-w-lg mx-auto">
-              <img
-                src={heroVisual}
-                alt="AI-powered digital network visualization"
-                className="w-full h-auto rounded-2xl shadow-2xl"
-              />
-              {/* Glow overlay */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-background/40 via-transparent to-transparent" />
+            <div className="relative w-full max-w-md">
+              {/* Background glow */}
+              <div className="absolute inset-0 bg-primary/5 rounded-3xl blur-3xl" />
+
+              {/* Words */}
+              <div className="relative space-y-3">
+                {[
+                  { word: "Conceptualize", delay: 0.4, accent: false },
+                  { word: "Build", delay: 0.6, accent: true },
+                  { word: "Scale", delay: 0.8, accent: false },
+                ].map((item) => (
+                  <motion.div
+                    key={item.word}
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: item.delay }}
+                    className="group"
+                  >
+                    <div className={`relative overflow-hidden rounded-2xl px-8 py-6 border transition-all duration-500 ${
+                      item.accent 
+                        ? "bg-primary border-primary/30 shadow-lg shadow-primary/20" 
+                        : "bg-card border-border hover:border-primary/30"
+                    }`}>
+                      <span className={`text-4xl md:text-5xl font-black tracking-tight ${
+                        item.accent ? "text-primary-foreground" : "text-foreground"
+                      }`}>
+                        {item.word}
+                      </span>
+                      {/* Decorative dot */}
+                      <span className={`absolute right-6 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full ${
+                        item.accent ? "bg-accent" : "bg-primary/40"
+                      }`} />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
