@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Zap, TrendingUp, Shield } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import heroVisual from "@/assets/hero-visual.png";
 
 const Hero = () => {
   return (
@@ -20,46 +21,6 @@ const Hero = () => {
               with AI Powered Innovation
             </h1>
 
-            <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-8">
-              Measurable results. Tangible impact.
-            </p>
-
-            {/* Stats Row */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-wrap justify-center lg:justify-start gap-6 mb-8"
-            >
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Zap className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-foreground">50%</p>
-                  <p className="text-xs text-muted-foreground">Faster Delivery</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-accent" />
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-foreground">$2.8B+</p>
-                  <p className="text-xs text-muted-foreground">IP Valuation</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Shield className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-foreground">10+</p>
-                  <p className="text-xs text-muted-foreground">Industries</p>
-                </div>
-              </div>
-            </motion.div>
-
             {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -77,76 +38,21 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Visual - Stacked Cards with Process Flow */}
+          {/* Right Visual - Bold Geometric Image */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="relative hidden lg:block"
           >
-            <div className="relative w-full max-w-md mx-auto">
-              {/* Main stacked cards */}
-              <div className="space-y-4">
-                {/* Conceptualize Card - Deep Slate */}
-                <motion.div
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                  className="relative p-6 rounded-2xl shadow-xl ml-0"
-                  style={{ backgroundColor: 'hsl(220, 40%, 20%)' }}
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
-                      <span className="text-2xl font-black text-white">01</span>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white">Conceptualize</h3>
-                      <p className="text-sm text-white/80">Strategy & Vision</p>
-                    </div>
-                  </div>
-                  <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-primary rounded-full" />
-                </motion.div>
-
-                {/* Build Card - Blue */}
-                <motion.div
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                  className="relative bg-primary p-6 rounded-2xl shadow-xl ml-8"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
-                      <span className="text-2xl font-black text-white">02</span>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white">Build</h3>
-                      <p className="text-sm text-white/80">Engineering Excellence</p>
-                    </div>
-                  </div>
-                  <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-accent rounded-full" />
-                </motion.div>
-
-                {/* Scale Card - Green */}
-                <motion.div
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
-                  className="relative bg-accent p-6 rounded-2xl shadow-xl ml-16"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
-                      <span className="text-2xl font-black text-white">03</span>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white">Scale</h3>
-                      <p className="text-sm text-white/80">Growth & Performance</p>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Connecting line */}
-              <div className="absolute left-6 top-16 bottom-16 w-0.5 bg-gradient-to-b from-primary via-accent to-primary opacity-30" />
+            <div className="relative w-full max-w-lg mx-auto">
+              <img
+                src={heroVisual}
+                alt="AI-powered digital network visualization"
+                className="w-full h-auto rounded-2xl shadow-2xl"
+              />
+              {/* Glow overlay */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-background/40 via-transparent to-transparent" />
             </div>
           </motion.div>
         </div>
