@@ -1,8 +1,9 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { 
-  Brain, Cloud, Code, Database, Smartphone, Cpu, ChevronRight 
+  Brain, Cloud, Code, Database, Smartphone, Cpu, ChevronRight, ChevronDown 
 } from "lucide-react";
 
 const techCategories = [
@@ -73,7 +74,12 @@ const techCategories = [
 const Technologies = () => {
   const sectionRef = useScrollReveal();
   const [activeCategory, setActiveCategory] = useState("ai");
+  const isMobile = useIsMobile();
   const activeData = techCategories.find((cat) => cat.id === activeCategory);
+
+  const handleToggle = (id: string) => {
+    setActiveCategory(id);
+  };
 
   return (
     <section id="technologies" className="section-padding bg-section-alt" ref={sectionRef}>
@@ -89,61 +95,114 @@ const Technologies = () => {
           </h2>
         </div>
 
-        {/* Technology Grid */}
-        <div data-animate="reveal" className="grid lg:grid-cols-3 gap-8">
-          {/* Category Tabs */}
-          <div className="space-y-3">
-            {techCategories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className={`w-full flex items-center gap-4 p-4 rounded-xl text-left transition-all duration-300 ${
-                  activeCategory === category.id
-                    ? "bg-primary text-primary-foreground shadow-lg"
-                    : "bg-card hover:bg-secondary border border-border"
-                }`}
-              >
-                <category.icon className={`w-6 h-6 ${activeCategory === category.id ? "text-primary-foreground" : "text-primary"}`} />
-                <span className="font-medium text-sm">{category.title}</span>
-                <ChevronRight className={`w-4 h-4 ml-auto transition-transform ${activeCategory === category.id ? "rotate-90" : ""}`} />
-              </button>
-            ))}
-          </div>
-
-          {/* Active Category Details */}
-          <motion.div
-            key={activeCategory}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4 }}
-            className="lg:col-span-2 card-premium p-8"
-          >
-            {activeData && (
-              <>
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <activeData.icon className="w-7 h-7 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground">{activeData.title}</h3>
+        {/* Mobile: Accordion Layout */}
+        {isMobile ? (
+          <div data-animate="reveal" className="space-y-3">
+            {techCategories.map((category) => {
+              const isActive = activeCategory === category.id;
+              return (
+                <div key={category.id} className="rounded-xl border border-border overflow-hidden">
+                  <button
+                    onClick={() => handleToggle(category.id)}
+                    className={`w-full flex items-center gap-3 p-4 text-left transition-all duration-300 ${
+                      isActive
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-card hover:bg-secondary"
+                    }`}
+                  >
+                    <category.icon className={`w-5 h-5 shrink-0 ${isActive ? "text-primary-foreground" : "text-primary"}`} />
+                    <span className="font-medium text-sm flex-1">{category.title}</span>
+                    <ChevronDown className={`w-4 h-4 shrink-0 transition-transform duration-300 ${isActive ? "rotate-180" : ""}`} />
+                  </button>
+                  <AnimatePresence>
+                    {isActive && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <div className="p-4 bg-card border-t border-border">
+                          <ul className="space-y-3">
+                            {category.items.map((item, index) => (
+                              <motion.li
+                                key={index}
+                                initial={{ opacity: 0, x: 10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.2, delay: index * 0.05 }}
+                                className="flex items-start gap-3"
+                              >
+                                <span className="shrink-0 w-2 h-2 rounded-full bg-accent mt-2" />
+                                <span className="text-muted-foreground text-sm">{item}</span>
+                              </motion.li>
+                            ))}
+                          </ul>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-                <ul className="space-y-4">
-                  {activeData.items.map((item, index) => (
-                    <motion.li
-                      key={index}
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.1 }}
-                      className="flex items-start gap-3"
-                    >
-                      <span className="shrink-0 w-2 h-2 rounded-full bg-accent mt-2" />
-                      <span className="text-muted-foreground">{item}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </>
-            )}
-          </motion.div>
-        </div>
+              );
+            })}
+          </div>
+        ) : (
+          /* Desktop: Side-by-side Layout (unchanged) */
+          <div data-animate="reveal" className="grid lg:grid-cols-3 gap-8">
+            {/* Category Tabs */}
+            <div className="space-y-3">
+              {techCategories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => setActiveCategory(category.id)}
+                  className={`w-full flex items-center gap-4 p-4 rounded-xl text-left transition-all duration-300 ${
+                    activeCategory === category.id
+                      ? "bg-primary text-primary-foreground shadow-lg"
+                      : "bg-card hover:bg-secondary border border-border"
+                  }`}
+                >
+                  <category.icon className={`w-6 h-6 ${activeCategory === category.id ? "text-primary-foreground" : "text-primary"}`} />
+                  <span className="font-medium text-sm">{category.title}</span>
+                  <ChevronRight className={`w-4 h-4 ml-auto transition-transform ${activeCategory === category.id ? "rotate-90" : ""}`} />
+                </button>
+              ))}
+            </div>
+
+            {/* Active Category Details */}
+            <motion.div
+              key={activeCategory}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4 }}
+              className="lg:col-span-2 card-premium p-8"
+            >
+              {activeData && (
+                <>
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <activeData.icon className="w-7 h-7 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-foreground">{activeData.title}</h3>
+                  </div>
+                  <ul className="space-y-4">
+                    {activeData.items.map((item, index) => (
+                      <motion.li
+                        key={index}
+                        initial={{ opacity: 0, x: 10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                        className="flex items-start gap-3"
+                      >
+                        <span className="shrink-0 w-2 h-2 rounded-full bg-accent mt-2" />
+                        <span className="text-muted-foreground">{item}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </motion.div>
+          </div>
+        )}
       </div>
     </section>
   );
