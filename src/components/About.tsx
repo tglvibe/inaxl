@@ -1,6 +1,4 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Building2, Brain, Users, Zap, TrendingUp, Shield } from "lucide-react";
 
 const pillars = [
@@ -22,25 +20,18 @@ const pillars = [
 ];
 
 const About = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const sectionRef = useScrollReveal();
 
   return (
-    <section id="about" className="section-padding bg-background" ref={ref}>
+    <section id="about" className="section-padding bg-section-alt" ref={sectionRef}>
       <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-end">
           {/* Left Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8 }}
-          >
+          <div data-animate="fade-left">
             <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
               Who We Are
             </span>
-            <h2 className="text-foreground mb-4">
-              INAXL
-            </h2>
+            <h2 className="text-foreground mb-4">INAXL</h2>
             <p className="text-lg font-medium text-primary mb-6">
               Measurable results. Tangible impact.
             </p>
@@ -52,7 +43,7 @@ const About = () => {
               We partner with visionary entrepreneurs, enterprises, and fast-emerging startups to conceptualize, build, and scale their products and solutions.
             </p>
 
-            {/* Key Stats - Updated */}
+            {/* Key Stats */}
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center p-4 rounded-xl bg-card shadow-card border border-border">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-2">
@@ -76,23 +67,12 @@ const About = () => {
                 <p className="text-sm text-muted-foreground">Lower TCO</p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right - Pillars */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-6"
-          >
-            {pillars.map((pillar, index) => (
-              <motion.div
-                key={pillar.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                className="card-premium p-6 flex gap-5"
-              >
+          <div className="space-y-6" data-animate="stagger">
+            {pillars.map((pillar) => (
+              <div key={pillar.title} className="card-premium p-6 flex gap-5">
                 <div className="shrink-0 w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
                   <pillar.icon className="w-7 h-7 text-primary" />
                 </div>
@@ -100,9 +80,9 @@ const About = () => {
                   <h4 className="text-lg font-semibold text-foreground mb-2">{pillar.title}</h4>
                   <p className="text-muted-foreground">{pillar.description}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

@@ -26,7 +26,8 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-inaxl-navy text-primary-foreground">
+    <footer className="bg-inaxl-navy text-primary-foreground relative overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
       <div className="section-container py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand Column */}

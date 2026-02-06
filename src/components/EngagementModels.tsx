@@ -1,6 +1,4 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { CheckCircle2, Target, Users, Handshake, UserCheck } from "lucide-react";
 
 const models = [
@@ -47,19 +45,13 @@ const models = [
 ];
 
 const EngagementModels = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const sectionRef = useScrollReveal();
 
   return (
-    <section className="section-padding bg-background" ref={ref}>
+    <section className="section-padding bg-section-alt" ref={sectionRef}>
       <div className="section-container">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
+        <div data-animate="reveal" className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
             Engagement Models
           </span>
@@ -67,18 +59,12 @@ const EngagementModels = () => {
             Flexible Models for{" "}
             <span className="text-primary">Every Stage</span>
           </h2>
-        </motion.div>
+        </div>
 
         {/* Models Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {models.map((model, index) => (
-            <motion.div
-              key={model.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="card-premium p-8"
-            >
+        <div className="grid md:grid-cols-2 gap-8" data-animate="stagger">
+          {models.map((model) => (
+            <div key={model.title} className="card-premium p-8">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
                   <model.icon className="w-7 h-7 text-primary" />
@@ -96,7 +82,7 @@ const EngagementModels = () => {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

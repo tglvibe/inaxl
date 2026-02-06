@@ -1,15 +1,6 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { 
-  Code2, 
-  BarChart3, 
-  Cloud, 
-  Compass,
-  Rocket,
-  Lightbulb,
-  Package,
-  Briefcase
+  Code2, BarChart3, Cloud, Compass, Rocket, Lightbulb, Package, Briefcase 
 } from "lucide-react";
 
 const verticals = [
@@ -36,19 +27,13 @@ const verticals = [
 ];
 
 const Services = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const sectionRef = useScrollReveal();
 
   return (
-    <section id="services" className="section-padding bg-background" ref={ref}>
+    <section id="services" className="section-padding bg-background" ref={sectionRef}>
       <div className="section-container">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
+        <div data-animate="reveal" className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
             Business Verticals & Offerings
           </span>
@@ -56,35 +41,22 @@ const Services = () => {
             Comprehensive Solutions for{" "}
             <span className="text-primary">Digital Excellence</span>
           </h2>
-        </motion.div>
+        </div>
 
         {/* Verticals */}
         <div className="space-y-16">
-          {verticals.map((vertical, vIndex) => (
-            <motion.div
-              key={vertical.title}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: vIndex * 0.2 }}
-            >
-              {/* Vertical Header */}
-              <div className="mb-8">
+          {verticals.map((vertical) => (
+            <div key={vertical.title}>
+              <div data-animate="reveal" className="mb-8">
                 <div className="flex items-center gap-3">
                   <div className={`w-3 h-3 rounded-full ${vertical.color === 'primary' ? 'bg-primary' : 'bg-accent'}`} />
                   <h3 className="text-foreground">{vertical.title}</h3>
                 </div>
               </div>
 
-              {/* Offerings Grid */}
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {vertical.offerings.map((offering, oIndex) => (
-                  <motion.div
-                    key={offering.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.5, delay: 0.3 + oIndex * 0.1 }}
-                    className="card-premium p-6 group"
-                  >
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" data-animate="stagger">
+                {vertical.offerings.map((offering) => (
+                  <div key={offering.title} className="card-premium p-6 group">
                     <div className={`w-12 h-12 rounded-xl mb-4 flex items-center justify-center transition-all duration-300 group-hover:scale-110 ${
                       vertical.color === 'primary' 
                         ? 'bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground' 
@@ -96,10 +68,10 @@ const Services = () => {
                       {offering.title}
                     </h5>
                     <p className="text-sm text-muted-foreground">{offering.description}</p>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

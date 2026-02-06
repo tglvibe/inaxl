@@ -1,22 +1,15 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Mail, MapPin, ArrowRight } from "lucide-react";
 
 const Contact = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const sectionRef = useScrollReveal();
 
   return (
-    <section id="contact" className="section-padding bg-background" ref={ref}>
+    <section id="contact" className="section-padding bg-background" ref={sectionRef}>
       <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8 }}
-          >
+          <div data-animate="fade-left">
             <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
               Get In Touch
             </span>
@@ -48,14 +41,10 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right - Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
+          <div data-animate="fade-right">
             <form className="card-premium space-y-6 p-8">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
@@ -111,7 +100,7 @@ const Contact = () => {
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>
             </form>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

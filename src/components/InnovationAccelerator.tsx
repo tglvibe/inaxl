@@ -1,6 +1,4 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Rocket, Lightbulb, Cpu, Users, ArrowRight } from "lucide-react";
 
 const benefits = [
@@ -11,19 +9,14 @@ const benefits = [
 ];
 
 const InnovationAccelerator = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const sectionRef = useScrollReveal();
 
   return (
-    <section className="section-padding bg-background" ref={ref}>
+    <section className="section-padding bg-background" ref={sectionRef}>
       <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8 }}
-          >
+          <div data-animate="fade-left">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
               <Rocket className="w-4 h-4 text-accent" />
               <span className="text-sm font-medium text-accent">Innovation Program</span>
@@ -44,14 +37,10 @@ const InnovationAccelerator = () => {
               Learn More
               <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
             </a>
-          </motion.div>
+          </div>
 
           {/* Right - Benefits */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
+          <div data-animate="fade-right">
             <div className="card-premium p-8">
               <h4 className="text-xl font-semibold text-foreground mb-2">The INAXL Advantage</h4>
               <p className="text-accent font-medium mb-6">
@@ -59,22 +48,19 @@ const InnovationAccelerator = () => {
               </p>
               <div className="space-y-4">
                 {benefits.map((benefit, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                     className="flex items-start gap-4 p-4 rounded-xl bg-secondary"
                   >
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                       <benefit.icon className="w-5 h-5 text-primary" />
                     </div>
                     <p className="text-muted-foreground">{benefit.text}</p>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

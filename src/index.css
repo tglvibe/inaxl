@@ -51,6 +51,7 @@
     --inaxl-lime: 155 100% 30%;
     --inaxl-navy: 215 80% 8%;
     --inaxl-slate: 215 60% 15%;
+    --section-alt: 210 45% 97%;
     
     /* Shadow tokens - Deep navy shadows */
     --shadow-sm: 0 1px 3px 0 hsl(215, 80%, 8%, 0.1);
@@ -165,12 +166,13 @@
   .card-premium {
     @apply bg-card rounded-xl border border-border;
     box-shadow: var(--shadow-card);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .card-premium:hover {
     box-shadow: var(--shadow-card-hover);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    border-color: hsl(var(--primary) / 0.15);
   }
 
   /* Text highlight */
