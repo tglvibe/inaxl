@@ -17,20 +17,20 @@ const verticals = [
     title: "Technology Services",
     color: "primary",
     offerings: [
-      { icon: Code2, title: "Product Engineering & Digital Ecosystems" },
-      { icon: BarChart3, title: "Data, Analytics & AI-Driven Transformation" },
-      { icon: Cloud, title: "Cloud & Infrastructure Management" },
-      { icon: Compass, title: "Digital Strategy & Consulting" },
+      { icon: Code2, title: "Product Engineering & Digital Ecosystems", description: "End-to-end product design, development, and scalable platforms" },
+      { icon: BarChart3, title: "Data, Analytics & AI-Driven Transformation", description: "Turning data into actionable insights and intelligent automation" },
+      { icon: Cloud, title: "Cloud & Infrastructure Management", description: "Cloud strategy, architecture, deployment, and ongoing management" },
+      { icon: Compass, title: "Digital Strategy & Consulting", description: "Guiding enterprises to innovate, optimize, and achieve business impact" },
     ],
   },
   {
     title: "Product Development",
     color: "accent",
     offerings: [
-      { icon: Rocket, title: "Startup Technology Partnerships" },
-      { icon: Lightbulb, title: "IP Development" },
-      { icon: Package, title: "Product Development" },
-      { icon: Briefcase, title: "Gig Entrepreneurship Program" },
+      { icon: Rocket, title: "Startup Technology Partnerships", description: "Collaborating with startups to co-create impactful solutions" },
+      { icon: Lightbulb, title: "IP Development", description: "Creating proprietary technology, patents, and intellectual property" },
+      { icon: Package, title: "Product Development", description: "Ideation, prototyping, and scaling products for market success" },
+      { icon: Briefcase, title: "Gig Entrepreneurship Program", description: "Enabling gig workers and independent innovators to build and scale digital products" },
     ],
   },
 ];
@@ -92,9 +92,10 @@ const Services = () => {
                     }`}>
                       <offering.icon className="w-6 h-6" />
                     </div>
-                    <h5 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                    <h5 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                       {offering.title}
                     </h5>
+                    <p className="text-sm text-muted-foreground">{offering.description}</p>
                   </motion.div>
                 ))}
               </div>
