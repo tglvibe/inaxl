@@ -49,37 +49,58 @@ const Hero = () => {
             className="relative hidden lg:flex items-center justify-center"
           >
             <div className="relative w-full max-w-md">
-              {/* Background glow */}
-              <div className="absolute inset-0 bg-primary/5 rounded-3xl blur-3xl" />
+              {/* Ambient glow */}
+              <div className="absolute -inset-8 bg-gradient-to-br from-primary/8 via-accent/5 to-transparent rounded-[3rem] blur-2xl" />
 
-              {/* Words */}
-              <div className="relative space-y-3">
+              {/* Vertical connector line */}
+              <div className="absolute left-10 top-8 bottom-8 w-px bg-gradient-to-b from-primary/60 via-accent/40 to-primary/20" />
+
+              {/* Steps */}
+              <div className="relative space-y-5">
                 {[
-                  { word: "Conceptualize", delay: 0.4, accent: false },
-                  { word: "Build", delay: 0.6, accent: true },
-                  { word: "Scale", delay: 0.8, accent: false },
-                ].map((item) => (
+                  { num: "01", word: "Conceptualize", sub: "Strategy & Vision", color: "slate" as const },
+                  { num: "02", word: "Build", sub: "Engineering Excellence", color: "primary" as const },
+                  { num: "03", word: "Scale", sub: "Growth & Performance", color: "accent" as const },
+                ].map((item, i) => (
                   <motion.div
                     key={item.word}
-                    initial={{ opacity: 0, x: 40 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: item.delay }}
-                    className="group"
+                    initial={{ opacity: 0, x: 50, y: 10 }}
+                    animate={{ opacity: 1, x: 0, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.4 + i * 0.2, ease: "easeOut" }}
+                    style={{ marginLeft: `${i * 24}px` }}
                   >
-                    <div className={`relative overflow-hidden rounded-2xl px-8 py-6 border transition-all duration-500 ${
-                      item.accent 
-                        ? "bg-primary border-primary/30 shadow-lg shadow-primary/20" 
-                        : "bg-card border-border hover:border-primary/30"
-                    }`}>
-                      <span className={`text-4xl md:text-5xl font-black tracking-tight ${
-                        item.accent ? "text-primary-foreground" : "text-foreground"
-                      }`}>
-                        {item.word}
-                      </span>
-                      {/* Decorative dot */}
-                      <span className={`absolute right-6 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full ${
-                        item.accent ? "bg-accent" : "bg-primary/40"
-                      }`} />
+                    <div
+                      className={`relative rounded-2xl p-6 border backdrop-blur-sm transition-all duration-500 group cursor-default ${
+                        item.color === "primary"
+                          ? "bg-primary border-primary/40 shadow-xl shadow-primary/25"
+                          : item.color === "accent"
+                          ? "bg-accent border-accent/40 shadow-xl shadow-accent/20"
+                          : "border-border/60 shadow-lg"
+                      }`}
+                      style={
+                        item.color === "slate"
+                          ? { backgroundColor: "hsl(215, 60%, 15%)" }
+                          : undefined
+                      }
+                    >
+                      {/* Number badge */}
+                      <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-background border-2 border-primary flex items-center justify-center z-10">
+                        <span className="text-[10px] font-bold text-primary">{item.num}</span>
+                      </div>
+
+                      <div className="flex items-center gap-5 pl-4">
+                        <div>
+                          <h3 className="text-2xl md:text-3xl font-black tracking-tight text-white leading-none mb-1">
+                            {item.word}
+                          </h3>
+                          <p className="text-sm font-medium text-white/70 tracking-wide">
+                            {item.sub}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Shine line */}
+                      <div className="absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
                     </div>
                   </motion.div>
                 ))}
