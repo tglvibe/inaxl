@@ -1,6 +1,6 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
 import { useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
 
 const testimonials = [
@@ -38,45 +38,22 @@ const Testimonials = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
 
-  const navigate = (newDirection: number) => {
-    setDirection(newDirection);
+  const navigate = (dir: number) => {
     setActiveIndex((prev) => {
-      if (newDirection === 1) {
-        return prev === testimonials.length - 1 ? 0 : prev + 1;
-      }
+      if (dir === 1) return prev === testimonials.length - 1 ? 0 : prev + 1;
       return prev === 0 ? testimonials.length - 1 : prev - 1;
     });
   };
 
-  // Auto-advance every 6 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      navigate(1);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 100 : -100,
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      x: direction < 0 ? 100 : -100,
-      opacity: 0,
-    }),
-  };
-
-  const currentTestimonial = testimonials[activeIndex];
+  const t = testimonials[activeIndex];
 
   return (
-    <section className="section-padding bg-background" ref={ref}>
+    <section
+      className="section-padding"
+      style={{ background: "hsl(215, 60%, 12%)" }}
+      ref={ref}
+    >
       <div className="section-container">
         {/* Header */}
         <motion.div
@@ -85,107 +62,125 @@ const Testimonials = () => {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-12"
         >
-          <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
+          <span className="inline-block text-sm font-semibold uppercase tracking-wider mb-4 text-primary-foreground/60">
             Testimonials
           </span>
-          <h2 className="text-foreground mb-6">
+          <h2 className="text-primary-foreground mb-6">
             Building{" "}
-            <span className="text-primary">Lasting Relationships</span>
+            <span style={{ color: "hsl(200, 100%, 55%)" }}>
+              Lasting Relationships
+            </span>
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-primary-foreground/70">
             What our partners say about working with INAXL.
           </p>
         </motion.div>
 
-        {/* Single Testimonial Display */}
+        {/* Static Testimonial Box */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="relative">
-            {/* Navigation Buttons */}
-            <button
-              onClick={() => navigate(-1)}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-14 z-10 w-12 h-12 rounded-full bg-background border border-border shadow-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
-              aria-label="Previous testimonial"
+          <div
+            className="rounded-2xl p-8 md:p-12 relative"
+            style={{
+              background: "hsl(215, 55%, 16%)",
+              border: "1px solid hsl(215, 50%, 22%)",
+            }}
+          >
+            {/* Quote Icon */}
+            <div
+              className="w-12 h-12 rounded-full flex items-center justify-center mb-8"
+              style={{ background: "hsl(200, 100%, 55%, 0.12)" }}
             >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-
-            <button
-              onClick={() => navigate(1)}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-14 z-10 w-12 h-12 rounded-full bg-background border border-border shadow-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-
-            {/* Testimonial Card */}
-            <div className="overflow-hidden px-8 md:px-0">
-              <AnimatePresence mode="wait" custom={direction}>
-                <motion.div
-                  key={activeIndex}
-                  custom={direction}
-                  variants={variants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                  className="bg-card border border-border rounded-2xl p-8 md:p-12 text-center relative"
-                >
-                  {/* Large Quote Icon */}
-                  <div className="absolute top-6 left-6 w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Quote className="w-7 h-7 text-primary" />
-                  </div>
-
-                  {/* Badge */}
-                  <span className="inline-block text-sm font-medium text-primary bg-primary/10 px-4 py-1.5 rounded-full mb-8">
-                    {currentTestimonial.badge}
-                  </span>
-
-                  {/* Quote */}
-                  <blockquote className="text-xl md:text-2xl text-foreground font-medium leading-relaxed mb-8 max-w-3xl mx-auto">
-                    "{currentTestimonial.quote}"
-                  </blockquote>
-
-                  {/* Author */}
-                  <div className="flex flex-col items-center gap-3">
-                    <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-2xl">
-                      {currentTestimonial.author.charAt(0)}
-                    </div>
-                    <div>
-                      <p className="font-bold text-lg text-foreground">
-                        {currentTestimonial.author}
-                      </p>
-                      <p className="text-muted-foreground">
-                        {currentTestimonial.role}, {currentTestimonial.company}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
-
-          {/* Dot Indicators */}
-          <div className="flex justify-center gap-2 mt-8">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  setDirection(index > activeIndex ? 1 : -1);
-                  setActiveIndex(index);
-                }}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === activeIndex
-                    ? "bg-primary w-8"
-                    : "bg-border hover:bg-primary/50"
-                }`}
-                aria-label={`Go to testimonial ${index + 1}`}
+              <Quote
+                className="w-6 h-6"
+                style={{ color: "hsl(200, 100%, 55%)" }}
               />
-            ))}
+            </div>
+
+            {/* Badge */}
+            <span
+              className="inline-block text-sm font-medium px-4 py-1.5 rounded-full mb-6"
+              style={{
+                background: "hsl(200, 100%, 55%, 0.1)",
+                color: "hsl(200, 100%, 65%)",
+              }}
+            >
+              {t.badge}
+            </span>
+
+            {/* Quote Text — fixed height container to prevent reflow */}
+            <div className="min-h-[120px] md:min-h-[100px] mb-8">
+              <blockquote className="text-xl md:text-2xl font-medium leading-relaxed text-primary-foreground/90">
+                "{t.quote}"
+              </blockquote>
+            </div>
+
+            {/* Author + Navigation Row */}
+            <div className="flex items-end justify-between">
+              {/* Author */}
+              <div className="flex items-center gap-4">
+                <div
+                  className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg text-primary-foreground"
+                  style={{ background: "hsl(210, 100%, 25%)" }}
+                >
+                  {t.author.charAt(0)}
+                </div>
+                <div>
+                  <p className="font-semibold text-primary-foreground">
+                    {t.author}
+                  </p>
+                  <p className="text-sm text-primary-foreground/50">
+                    {t.role}, {t.company}
+                  </p>
+                </div>
+              </div>
+
+              {/* Navigation Arrows — bottom-right */}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => navigate(-1)}
+                  className="w-9 h-9 rounded-full flex items-center justify-center transition-colors"
+                  style={{
+                    border: "1px solid hsl(215, 50%, 28%)",
+                    color: "hsl(0, 0%, 100%, 0.6)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "hsl(215, 50%, 22%)";
+                    e.currentTarget.style.color = "hsl(0, 0%, 100%)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "transparent";
+                    e.currentTarget.style.color = "hsl(0, 0%, 100%, 0.6)";
+                  }}
+                  aria-label="Previous testimonial"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => navigate(1)}
+                  className="w-9 h-9 rounded-full flex items-center justify-center transition-colors"
+                  style={{
+                    border: "1px solid hsl(215, 50%, 28%)",
+                    color: "hsl(0, 0%, 100%, 0.6)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "hsl(215, 50%, 22%)";
+                    e.currentTarget.style.color = "hsl(0, 0%, 100%)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "transparent";
+                    e.currentTarget.style.color = "hsl(0, 0%, 100%, 0.6)";
+                  }}
+                  aria-label="Next testimonial"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>
