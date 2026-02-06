@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useRef, useState, useEffect } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -55,9 +54,8 @@ const caseStudies = [
 ];
 
 const CaseStudies = () => {
-  const ref = useRef(null);
+  const sectionRef = useScrollReveal();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
@@ -84,15 +82,10 @@ const CaseStudies = () => {
   };
 
   return (
-    <section id="case-studies" className="section-padding bg-background" ref={ref}>
+    <section id="case-studies" className="section-padding bg-background" ref={sectionRef}>
       <div className="section-container">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-12"
-        >
+        <div data-animate="reveal" className="text-center max-w-3xl mx-auto mb-12">
           <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
             Our Work
           </span>
@@ -103,10 +96,10 @@ const CaseStudies = () => {
             Discover how we've helped leading organizations transform their businesses
             through innovative technology solutions
           </p>
-        </motion.div>
+        </div>
 
         {/* Horizontal Scroll Container */}
-        <div className="relative group/scroll">
+        <div data-animate="reveal" className="relative group/scroll">
           {/* Left Arrow */}
           <button
             onClick={() => scroll("left")}
@@ -138,15 +131,12 @@ const CaseStudies = () => {
             className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent"
             style={{ scrollbarWidth: 'thin' }}
           >
-            {caseStudies.map((study, index) => (
-              <motion.article
+            {caseStudies.map((study) => (
+              <article
                 key={study.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="flex-shrink-0 w-[340px] md:w-[380px] snap-start group cursor-pointer"
               >
-                <div className="relative h-full rounded-2xl overflow-hidden bg-card border border-border shadow-sm hover:shadow-lg transition-shadow">
+                <div className="relative h-full rounded-2xl overflow-hidden bg-card border border-border shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden">
                     <img 
@@ -183,7 +173,7 @@ const CaseStudies = () => {
                     </div>
                   </div>
                 </div>
-              </motion.article>
+              </article>
             ))}
           </div>
 
@@ -196,17 +186,12 @@ const CaseStudies = () => {
         </div>
 
         {/* View All CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center mt-10"
-        >
+        <div data-animate="reveal" className="text-center mt-10">
           <button className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all border border-primary rounded-full px-6 py-3 hover:bg-primary hover:text-primary-foreground">
             View All Case Studies
             <ArrowRight className="w-4 h-4" />
           </button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

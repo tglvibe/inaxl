@@ -64,6 +64,7 @@ export default {
           navy: "hsl(var(--inaxl-navy))",
           slate: "hsl(var(--inaxl-slate))",
         },
+        'section-alt': 'hsl(var(--section-alt))',
       },
       borderRadius: {
         lg: "var(--radius)",

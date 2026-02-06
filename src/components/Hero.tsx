@@ -4,6 +4,11 @@ import { ArrowRight } from "lucide-react";
 const Hero = () => {
   return (
     <section id="hero" className="relative min-h-screen flex items-center bg-background overflow-hidden">
+      {/* Subtle background accents */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 rounded-full bg-primary/[0.03] blur-3xl" />
+        <div className="absolute -bottom-1/4 -left-1/4 w-1/3 h-1/3 rounded-full bg-accent/[0.02] blur-3xl" />
+      </div>
       <div className="section-container relative z-10 pt-24">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Content */}

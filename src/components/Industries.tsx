@@ -1,17 +1,7 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { 
-  HeartPulse, 
-  Landmark, 
-  Factory, 
-  GraduationCap, 
-  Server, 
-  ShoppingCart,
-  Truck,
-  Leaf,
-  Radio,
-  Film
+  HeartPulse, Landmark, Factory, GraduationCap, Server, ShoppingCart,
+  Truck, Leaf, Radio, Film 
 } from "lucide-react";
 
 const industries = [
@@ -68,19 +58,13 @@ const industries = [
 ];
 
 const Industries = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const sectionRef = useScrollReveal();
 
   return (
-    <section id="industries" className="section-padding bg-background" ref={ref}>
+    <section id="industries" className="section-padding bg-section-alt" ref={sectionRef}>
       <div className="section-container">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
+        <div data-animate="reveal" className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
             Industries We Serve
           </span>
@@ -88,16 +72,13 @@ const Industries = () => {
             Transforming Industries with{" "}
             <span className="text-primary">AI & Technology</span>
           </h2>
-        </motion.div>
+        </div>
 
         {/* Industries Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {industries.map((industry, index) => (
-            <motion.div
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4" data-animate="stagger">
+          {industries.map((industry) => (
+            <div
               key={industry.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
               className="card-premium p-5 group text-center"
             >
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
@@ -107,7 +88,7 @@ const Industries = () => {
                 {industry.title}
               </h5>
               <p className="text-xs text-muted-foreground">{industry.description}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

@@ -1,14 +1,8 @@
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
 import { 
-  Brain, 
-  Cloud, 
-  Code, 
-  Database, 
-  Smartphone, 
-  Cpu,
-  ChevronRight
+  Brain, Cloud, Code, Database, Smartphone, Cpu, ChevronRight 
 } from "lucide-react";
 
 const techCategories = [
@@ -77,22 +71,15 @@ const techCategories = [
 ];
 
 const Technologies = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const sectionRef = useScrollReveal();
   const [activeCategory, setActiveCategory] = useState("ai");
-
   const activeData = techCategories.find((cat) => cat.id === activeCategory);
 
   return (
-    <section id="technologies" className="section-padding bg-background" ref={ref}>
+    <section id="technologies" className="section-padding bg-section-alt" ref={sectionRef}>
       <div className="section-container">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
+        <div data-animate="reveal" className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
             Technologies We Work With
           </span>
@@ -100,17 +87,12 @@ const Technologies = () => {
             Engineering the Future with{" "}
             <span className="text-primary">Advanced Platforms</span>
           </h2>
-        </motion.div>
+        </div>
 
         {/* Technology Grid */}
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div data-animate="reveal" className="grid lg:grid-cols-3 gap-8">
           {/* Category Tabs */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-3"
-          >
+          <div className="space-y-3">
             {techCategories.map((category) => (
               <button
                 key={category.id}
@@ -126,7 +108,7 @@ const Technologies = () => {
                 <ChevronRight className={`w-4 h-4 ml-auto transition-transform ${activeCategory === category.id ? "rotate-90" : ""}`} />
               </button>
             ))}
-          </motion.div>
+          </div>
 
           {/* Active Category Details */}
           <motion.div
