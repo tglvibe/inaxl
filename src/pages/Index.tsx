@@ -4,7 +4,6 @@ import About from "@/components/About";
 import Services from "@/components/Services";
 import Technologies from "@/components/Technologies";
 import CaseStudies from "@/components/CaseStudies";
-import Differentiators from "@/components/Differentiators";
 import EngagementModels from "@/components/EngagementModels";
 import InnovationAccelerator from "@/components/InnovationAccelerator";
 import Industries from "@/components/Industries";
@@ -22,7 +21,6 @@ const Index = () => {
         <Services />
         <Technologies />
         <CaseStudies />
-        <Differentiators />
         <EngagementModels />
         <InnovationAccelerator />
         <Industries />

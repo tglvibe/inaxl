@@ -96,13 +96,10 @@ const Technologies = () => {
           <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
             Technologies We Work With
           </span>
-          <h2 className="text-foreground mb-6">
+          <h2 className="text-foreground">
             Engineering the Future with{" "}
             <span className="text-primary">Advanced Platforms</span>
           </h2>
-          <p className="text-lg text-muted-foreground">
-            AI-native architectures, cloud-native systems, and next-generation digital infrastructure for enterprise-grade solutions.
-          </p>
         </motion.div>
 
         {/* Technology Grid */}

@@ -15,56 +15,22 @@ import {
 const verticals = [
   {
     title: "Technology Services",
-    subtitle: "Delivering cutting-edge technology solutions and digital transformation for businesses",
     color: "primary",
     offerings: [
-      {
-        icon: Code2,
-        title: "Product Engineering & Digital Ecosystems",
-        description: "End-to-end product design, development, and scalable platforms",
-      },
-      {
-        icon: BarChart3,
-        title: "Data, Analytics & AI-Driven Transformation",
-        description: "Turning data into actionable insights and intelligent automation",
-      },
-      {
-        icon: Cloud,
-        title: "Cloud & Infrastructure Management",
-        description: "Cloud strategy, architecture, deployment, and ongoing management",
-      },
-      {
-        icon: Compass,
-        title: "Digital Strategy & Consulting",
-        description: "Guiding enterprises to innovate, optimize, and achieve business impact",
-      },
+      { icon: Code2, title: "Product Engineering & Digital Ecosystems" },
+      { icon: BarChart3, title: "Data, Analytics & AI-Driven Transformation" },
+      { icon: Cloud, title: "Cloud & Infrastructure Management" },
+      { icon: Compass, title: "Digital Strategy & Consulting" },
     ],
   },
   {
     title: "Product Development",
-    subtitle: "Building innovative products, IP, and entrepreneurial opportunities",
     color: "accent",
     offerings: [
-      {
-        icon: Rocket,
-        title: "Startup Technology Partnerships",
-        description: "Collaborating with startups to co-create impactful solutions",
-      },
-      {
-        icon: Lightbulb,
-        title: "IP Development",
-        description: "Creating proprietary technology, patents, and intellectual property",
-      },
-      {
-        icon: Package,
-        title: "Product Development",
-        description: "Ideation, prototyping, and scaling products for market success",
-      },
-      {
-        icon: Briefcase,
-        title: "Gig Entrepreneurship Program",
-        description: "Enabling gig workers and independent innovators to build and scale digital products",
-      },
+      { icon: Rocket, title: "Startup Technology Partnerships" },
+      { icon: Lightbulb, title: "IP Development" },
+      { icon: Package, title: "Product Development" },
+      { icon: Briefcase, title: "Gig Entrepreneurship Program" },
     ],
   },
 ];
@@ -86,13 +52,10 @@ const Services = () => {
           <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
             Business Verticals & Offerings
           </span>
-          <h2 className="text-foreground mb-6">
+          <h2 className="text-foreground">
             Comprehensive Solutions for{" "}
             <span className="text-primary">Digital Excellence</span>
           </h2>
-          <p className="text-lg text-muted-foreground">
-            From enterprise technology services to innovative product development, we deliver end-to-end solutions that drive transformation.
-          </p>
         </motion.div>
 
         {/* Verticals */}
@@ -106,11 +69,10 @@ const Services = () => {
             >
               {/* Vertical Header */}
               <div className="mb-8">
-                <div className="flex items-center gap-3 mb-3">
+                <div className="flex items-center gap-3">
                   <div className={`w-3 h-3 rounded-full ${vertical.color === 'primary' ? 'bg-primary' : 'bg-accent'}`} />
                   <h3 className="text-foreground">{vertical.title}</h3>
                 </div>
-                <p className="text-muted-foreground text-lg ml-6">{vertical.subtitle}</p>
               </div>
 
               {/* Offerings Grid */}
@@ -130,10 +92,9 @@ const Services = () => {
                     }`}>
                       <offering.icon className="w-6 h-6" />
                     </div>
-                    <h5 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                    <h5 className="font-semibold text-foreground group-hover:text-primary transition-colors">
                       {offering.title}
                     </h5>
-                    <p className="text-sm text-muted-foreground">{offering.description}</p>
                   </motion.div>
                 ))}
               </div>

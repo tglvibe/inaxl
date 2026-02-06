@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { ArrowRight } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 const caseStudies = [
   {
@@ -58,6 +58,30 @@ const CaseStudies = () => {
   const ref = useRef(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 10);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
+  };
+
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", checkScroll);
+    checkScroll();
+    return () => el.removeEventListener("scroll", checkScroll);
+  }, []);
+
+  const scroll = (direction: "left" | "right") => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const scrollAmount = 400;
+    el.scrollBy({ left: direction === "left" ? -scrollAmount : scrollAmount, behavior: "smooth" });
+  };
 
   return (
     <section id="case-studies" className="section-padding bg-background" ref={ref}>
@@ -82,7 +106,33 @@ const CaseStudies = () => {
         </motion.div>
 
         {/* Horizontal Scroll Container */}
-        <div className="relative">
+        <div className="relative group/scroll">
+          {/* Left Arrow */}
+          <button
+            onClick={() => scroll("left")}
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-card border border-border shadow-lg flex items-center justify-center transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:border-primary ${
+              canScrollLeft ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+            aria-label="Scroll left"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          {/* Right Arrow */}
+          <button
+            onClick={() => scroll("right")}
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-card border border-border shadow-lg flex items-center justify-center transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:border-primary ${
+              canScrollRight ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+            aria-label="Scroll right"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+
+          {/* Fade edges */}
+          <div className={`absolute left-0 top-0 bottom-4 w-12 bg-gradient-to-r from-background to-transparent z-[5] pointer-events-none transition-opacity ${canScrollLeft ? "opacity-100" : "opacity-0"}`} />
+          <div className={`absolute right-0 top-0 bottom-4 w-12 bg-gradient-to-l from-background to-transparent z-[5] pointer-events-none transition-opacity ${canScrollRight ? "opacity-100" : "opacity-0"}`} />
+
           <div 
             ref={scrollContainerRef}
             className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent"
@@ -103,6 +153,7 @@ const CaseStudies = () => {
                       src={study.image} 
                       alt={study.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   </div>
@@ -134,6 +185,13 @@ const CaseStudies = () => {
                 </div>
               </motion.article>
             ))}
+          </div>
+
+          {/* Scroll hint text */}
+          <div className="flex justify-center mt-3">
+            <span className="text-xs text-muted-foreground flex items-center gap-1">
+              <ChevronLeft className="w-3 h-3" /> Scroll to explore <ChevronRight className="w-3 h-3" />
+            </span>
           </div>
         </div>
 

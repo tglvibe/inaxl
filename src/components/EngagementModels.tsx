@@ -63,13 +63,10 @@ const EngagementModels = () => {
           <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
             Engagement Models
           </span>
-          <h2 className="text-foreground mb-6">
+          <h2 className="text-foreground">
             Flexible Models for{" "}
             <span className="text-primary">Every Stage</span>
           </h2>
-          <p className="text-lg text-muted-foreground">
-            At INAXL, we align our engagement models to your stage, speed, and scale. 4 engagement models, 100% outcome focused.
-          </p>
         </motion.div>
 
         {/* Models Grid */}

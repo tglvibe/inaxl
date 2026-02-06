@@ -84,13 +84,10 @@ const Industries = () => {
           <span className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-4">
             Industries We Serve
           </span>
-          <h2 className="text-foreground mb-6">
+          <h2 className="text-foreground">
             Transforming Industries with{" "}
             <span className="text-primary">AI & Technology</span>
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Deep domain expertise across diverse sectors, delivering tailored solutions for industry-specific challenges.
-          </p>
         </motion.div>
 
         {/* Industries Grid */}
