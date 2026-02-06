@@ -58,9 +58,9 @@ const Hero = () => {
               {/* Steps */}
               <div className="relative space-y-5">
                 {[
-                  { num: "01", word: "Conceptualize", sub: "Strategy & Vision", color: "slate" as const },
-                  { num: "02", word: "Build", sub: "Engineering Excellence", color: "primary" as const },
-                  { num: "03", word: "Scale", sub: "Growth & Performance", color: "accent" as const },
+                  { num: "01", word: "Conceptualize", sub: "Strategy & Vision", bg: "hsl(200, 65%, 22%)", border: "hsl(200, 65%, 30%)", shadow: "hsla(200, 65%, 22%, 0.35)" },
+                  { num: "02", word: "Build", sub: "Engineering Excellence", bg: "hsl(195, 50%, 28%)", border: "hsl(195, 50%, 36%)", shadow: "hsla(195, 50%, 28%, 0.3)" },
+                  { num: "03", word: "Scale", sub: "Growth & Performance", bg: "hsl(78, 60%, 33%)", border: "hsl(78, 60%, 40%)", shadow: "hsla(78, 60%, 33%, 0.3)" },
                 ].map((item, i) => (
                   <motion.div
                     key={item.word}
@@ -70,18 +70,12 @@ const Hero = () => {
                     style={{ marginLeft: `${i * 24}px` }}
                   >
                     <div
-                      className={`relative rounded-2xl p-6 border backdrop-blur-sm transition-all duration-500 group cursor-default ${
-                        item.color === "primary"
-                          ? "bg-primary border-primary/40 shadow-xl shadow-primary/25"
-                          : item.color === "accent"
-                          ? "bg-accent border-accent/40 shadow-xl shadow-accent/20"
-                          : "border-border/60 shadow-lg"
-                      }`}
-                      style={
-                        item.color === "slate"
-                          ? { backgroundColor: "hsl(215, 60%, 15%)" }
-                          : undefined
-                      }
+                      className="relative rounded-2xl p-6 border backdrop-blur-sm transition-all duration-500 group cursor-default shadow-xl"
+                      style={{
+                        backgroundColor: item.bg,
+                        borderColor: item.border,
+                        boxShadow: `0 20px 25px -5px ${item.shadow}, 0 8px 10px -6px ${item.shadow}`,
+                      }}
                     >
                       {/* Number badge */}
                       <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-background border-2 border-primary flex items-center justify-center z-10">
