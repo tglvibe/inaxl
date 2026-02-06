@@ -13,18 +13,7 @@ const Hero = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-center lg:text-left"
           >
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
-            >
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span className="text-sm font-medium text-primary">Measurable results. Tangible impact.</span>
-            </motion.div>
-
-            <h1 className="text-foreground mb-6">
+            <h1 className="text-foreground mb-4">
               Accelerating{" "}
               <span className="text-primary">Transformation</span>
               <br />
@@ -32,7 +21,7 @@ const Hero = () => {
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-8">
-              We don't just deliver technology—we deliver business value. Our transformation strategies maximize ROI and drive sustainable growth across your organization.
+              Measurable results. Tangible impact.
             </p>
 
             {/* Stats Row */}
