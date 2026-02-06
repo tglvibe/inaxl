@@ -41,15 +41,15 @@ const About = () => {
             <h2 className="text-foreground mb-4">
               INAXL
             </h2>
-            <p className="text-2xl md:text-3xl font-light text-muted-foreground mb-4">
-              Conceptualize. Build. Scale.
-            </p>
             <p className="text-lg font-medium text-primary mb-6">
               Measurable results. Tangible impact.
             </p>
             <div className="section-divider mb-8" />
-            <p className="text-lg text-muted-foreground mb-8">
-              INAXL is a US-based technology company specializing in product engineering and AI-powered transformative technologies. We partner with visionary entrepreneurs, enterprises, and fast-emerging startups to conceptualize, build, and scale their products and solutions.
+            <p className="text-lg text-muted-foreground mb-4">
+              INAXL is a US-based technology company specializing in product engineering and AI-powered transformative technologies.
+            </p>
+            <p className="text-muted-foreground mb-8">
+              We partner with visionary entrepreneurs, enterprises, and fast-emerging startups to conceptualize, build, and scale their products and solutions.
             </p>
 
             {/* Key Stats - Updated */}
