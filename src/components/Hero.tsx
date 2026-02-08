@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import aiInnovation from "@/assets/AI_Innovation.jpg";
 
 const Hero = () => {
   return (
@@ -53,54 +54,11 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="relative hidden lg:flex items-center justify-center"
           >
-            <div className="relative w-full max-w-md">
-              {/* Ambient glow */}
-              <div className="absolute -inset-8 bg-gradient-to-br from-primary/8 via-accent/5 to-transparent rounded-[3rem] blur-2xl" />
-
-              {/* Vertical connector line */}
-              <div className="absolute left-10 top-8 bottom-8 w-px bg-gradient-to-b from-primary/60 via-accent/40 to-primary/20" />
-
-              {/* Steps */}
-              <div className="relative space-y-5">
-                {[
-                  { word: "Conceptualize", sub: "Strategy & Vision", bg: "hsl(200, 65%, 22%)", border: "hsl(200, 65%, 30%)", shadow: "hsla(200, 65%, 22%, 0.35)" },
-                  { word: "Build", sub: "Engineering Excellence", bg: "hsl(195, 50%, 28%)", border: "hsl(195, 50%, 36%)", shadow: "hsla(195, 50%, 28%, 0.3)" },
-                  { word: "Scale", sub: "Growth & Performance", bg: "hsl(78, 60%, 33%)", border: "hsl(78, 60%, 40%)", shadow: "hsla(78, 60%, 33%, 0.3)" },
-                ].map((item, i) => (
-                  <motion.div
-                    key={item.word}
-                    initial={{ opacity: 0, x: 50, y: 10 }}
-                    animate={{ opacity: 1, x: 0, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.4 + i * 0.2, ease: "easeOut" }}
-                    style={{ marginLeft: `${i * 24}px` }}
-                  >
-                    <div
-                      className="relative rounded-2xl p-6 border backdrop-blur-sm transition-all duration-500 group cursor-default shadow-xl"
-                      style={{
-                        backgroundColor: item.bg,
-                        borderColor: item.border,
-                        boxShadow: `0 20px 25px -5px ${item.shadow}, 0 8px 10px -6px ${item.shadow}`,
-                      }}
-                    >
-
-                      <div className="flex items-center gap-5 pl-4">
-                        <div>
-                          <h3 className="text-2xl md:text-3xl font-black tracking-tight text-white leading-none mb-1">
-                            {item.word}
-                          </h3>
-                          <p className="text-sm font-medium text-white/70 tracking-wide">
-                            {item.sub}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Shine line */}
-                      <div className="absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+            <img
+              src={aiInnovation}
+              alt="AI Innovation - Robot holding a futuristic tablet"
+              className="w-full max-w-lg object-contain drop-shadow-2xl"
+            />
           </motion.div>
         </div>
       </div>
