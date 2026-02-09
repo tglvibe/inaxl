@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import aiInnovation from "@/assets/AI_Innovation.jpg";
+import heroVisual from "@/assets/hero-visual.png";
 
 const Hero = () => {
   return (
@@ -12,7 +12,21 @@ const Hero = () => {
       </div>
       <div className="section-container relative z-10 pt-24">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Content */}
+          {/* Left Visual */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="relative hidden lg:flex items-center justify-center"
+          >
+            <img
+              src={heroVisual}
+              alt="AI Robot holding a futuristic tablet"
+              className="w-full max-w-lg object-contain drop-shadow-2xl"
+            />
+          </motion.div>
+
+          {/* Right Content */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -45,20 +59,6 @@ const Hero = () => {
                 View Case Studies
               </a>
             </motion.div>
-          </motion.div>
-
-          {/* Right Visual - Conceptualize / Build / Scale */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative hidden lg:flex items-center justify-center"
-          >
-            <img
-              src={aiInnovation}
-              alt="AI Innovation - Robot holding a futuristic tablet"
-              className="w-full max-w-lg object-contain drop-shadow-2xl"
-            />
           </motion.div>
         </div>
       </div>
