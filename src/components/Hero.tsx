@@ -17,12 +17,12 @@ const Hero = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative hidden lg:flex items-start justify-center"
+            className="relative flex items-start justify-center lg:order-none order-first"
           >
             <img
               src={heroVisual}
               alt="AI Robot holding a futuristic tablet"
-              className="w-full max-w-2xl object-contain drop-shadow-2xl -mt-24"
+              className="w-full max-w-xs sm:max-w-sm lg:max-w-2xl object-contain drop-shadow-2xl mx-auto lg:mx-0 lg:-mt-24"
             />
           </motion.div>
 
