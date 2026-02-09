@@ -10,19 +10,19 @@ const Hero = () => {
         <div className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 rounded-full bg-primary/[0.03] blur-3xl" />
         <div className="absolute -bottom-1/4 -left-1/4 w-1/3 h-1/3 rounded-full bg-accent/[0.02] blur-3xl" />
       </div>
-      <div className="section-container relative z-10 pt-24">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="section-container relative z-10 pt-12">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-12 items-start">
           {/* Left Visual */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative hidden lg:flex items-center justify-center"
+            className="relative hidden lg:flex items-start justify-center"
           >
             <img
               src={heroVisual}
               alt="AI Robot holding a futuristic tablet"
-              className="w-full max-w-lg object-contain drop-shadow-2xl"
+              className="w-full max-w-2xl object-contain drop-shadow-2xl"
             />
           </motion.div>
 
