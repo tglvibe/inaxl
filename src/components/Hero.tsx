@@ -22,7 +22,7 @@ const Hero = () => {
             <img
               src={heroVisual}
               alt="AI Robot holding a futuristic tablet"
-              className="w-full max-w-2xl object-contain drop-shadow-2xl"
+              className="w-full max-w-2xl object-contain drop-shadow-2xl -mt-12"
             />
           </motion.div>
 
