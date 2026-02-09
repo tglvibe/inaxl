@@ -23,7 +23,7 @@ const About = () => {
   const sectionRef = useScrollReveal();
 
   return (
-    <section id="about" className="section-padding bg-section-alt" ref={sectionRef}>
+    <section id="about" className="section-padding !pt-6 md:!pt-8 lg:!pt-10 bg-section-alt" ref={sectionRef}>
       <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-end">
           {/* Left Content */}
